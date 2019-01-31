@@ -1,0 +1,131 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>เพิ่มรายการวัสดุ-ครุภัณฑ์</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="addItemOpen;then addItem else searchItem"></div>
+  <ng-template #searchItem>
+    <ion-searchbar showCancelButton  placeholder="รายการที่ต้องการเพิ่ม" (ionInput)="getItem($event)"></ion-searchbar>
+    <ion-list>
+      <ion-item *ngFor="let itemList of item" (click)="selectItem(itemList)">
+        <h6 >{{itemList.name}}</h6>
+      </ion-item>
+      
+    </ion-list>
+  </ng-template>
+  
+  <ng-template #addItem>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          รายการวัสดุ-ครุภัณฑ์
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating" >ประเภทของรายการ</ion-label>
+                <ion-input   placeholder="{{select.type}}" readonly ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating" >หมวดหมู่ของรายการ</ion-label>
+                <ion-input  placeholder="{{select.group}}" readonly></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating" >กลุ่มของรายการ</ion-label>
+                <ion-input  placeholder="{{select.list}}" readonly></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating" >ชื่อของรายการ</ion-label>
+                <ion-input  placeholder="{{select.name}}" readonly ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating" >โมเดลของรายการ</ion-label>
+                <ion-input  placeholder="{{select.model}}" readonly></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating" >ยี่ห้อของรายการ</ion-label>
+                <ion-input  [(ngModel)]="select.brand"  ></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label position="floating" >หมายเหตุ</ion-label>
+                  <ion-input [(ngModel)]="select.note" ></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating" >ราคาเฉลี่ยต่อหน่วยของรายการ</ion-label>
+                <ion-input [(ngModel)]="select.price" ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating" type="number" >จำนวนที่เพิ่มของรายการ</ion-label>
+                <ion-input [(ngModel)]="select.increas" ></ion-input>
+              </ion-item>         
+              <ion-item>
+                <ion-label position="floating" >หน่วย</ion-label>
+                <ion-input placeholder="{{select.unit}}" ></ion-input>
+              </ion-item>
+              <div *ngIf="select.group == 'วัสดุโครงการ' || select.group == 'ครุภัณฑ์โครงการ' ">
+                  <ion-item>
+                    <ion-label position="floating" >โครงการที่ซื้อของรายการ</ion-label>
+                    <ion-input placeholder="{{select.project}}" ></ion-input>
+                  </ion-item>
+                </div>
+              <ion-item>
+                <ion-label position="floating" type="date" >วันจัดซื้อของรายการ</ion-label>
+                <ion-input [(ngModel)]="select.date_buy" ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating" type="text" >สถานที่ซื้อของรายการ</ion-label>
+                <ion-input [(ngModel)]="select.buy_place" ></ion-input>
+              </ion-item>
+              <!-- <ion-item>
+                <ion-label position="floating" >สถานที่จัดเก็บของรายการ</ion-label>
+                <ion-input [(ngModel)]="select.keep_place" ></ion-input>
+              </ion-item> -->
+              <ion-item>
+                <ion-label>สถานที่จัดเก็บของรายการ</ion-label>
+                <ion-select value="{{select.keep_place}}" >
+                  <ion-select-option value="ห้องพักอาจารย์">ห้องพักอาจารย์</ion-select-option>
+                  <ion-select-option value="WSN Lab">WSN Lab</ion-select-option>
+                  <ion-select-option value="Sparkbit Lab">Sparkbit Lab</ion-select-option>
+                  <ion-select-option value="Co-Working Space">Co-Working Space</ion-select-option>
+                  <ion-select-option value="ตึก S ชั้น8">ตึก S ชั้น8</ion-select-option>
+                  <ion-select-option value="Data Center">Data Center</ion-select-option>
+                  <ion-select-option value="Sparkbit WorkPlace">Sparkbit WorkPlace</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label>ผู้รับผิดชอบ</ion-label>
+                <ion-select value="{{select.attendant}}" >
+                  <ion-select-option value="กิตติยา">กิตติยา</ion-select-option>
+                  <ion-select-option value="วรโชติ">วรโชติ</ion-select-option>
+                  <ion-select-option value="อมรรัตน์">อมรรัตน์</ion-select-option>
+                  <ion-select-option value="ศุพิวัสฒ์">ศุพิวัสฒ์</ion-select-option>
+                </ion-select>
+              </ion-item>
+              
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-list>
+          
+          
+          
+          
+          <ion-item >
+            <ion-button shape="round" (click)="save()" >Add</ion-button>
+            <ion-button shape="round" (click)="cancel()" >Cancel</ion-button>  
+          </ion-item>
+          
+        </ion-list>
+        
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+  
+</ion-content>

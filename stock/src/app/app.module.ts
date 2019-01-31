@@ -8,6 +8,14 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AddItemPageModule } from './add-item/add-item.module';
+import { EditItemPageModule } from './edit-item/edit-item.module';
+import { InfoItemPageModule } from './info-item/info-item.module';
+
+
+
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +23,11 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    AddItemPageModule,
+    EditItemPageModule,
+    InfoItemPageModule
+
   ],
   providers: [
     StatusBar,

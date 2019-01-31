@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>รายละเอียดข้อมูล</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        รายการวัสดุ-ครุภัณฑ์ที่แก้ไข
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="fixed" >ประเภท</ion-label>
+        <ion-input placeholder="{{item.type}}" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed" >หมวดหมู่</ion-label>
+        <ion-input placeholder="{{item.group}} " readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed" >รายการ</ion-label>
+        <ion-input placeholder="{{item.name}} " readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed" >โมเดล</ion-label>
+        <ion-input placeholder="{{item.model}}" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed" >ยี่ห้อ</ion-label>
+        <ion-input placeholder="{{item.brand}} " readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed" >ราคาต่อหน่วย</ion-label>
+        <ion-input placeholder="{{item.price}} " readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed" >หน่วย</ion-label>
+        <ion-input placeholder="{{item.unit}}" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed" >จำนวน</ion-label>
+        <ion-input placeholder="{{item.balance}} " readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed" >สถานที่จัดซื้อ</ion-label>
+        <ion-input placeholder="{{item.buy_place}} " readonly></ion-input>
+      </ion-item>
+      <div *ngIf="item.group == 'วัสดุโครงการ' || item.group == 'ครุภัณฑ์โครงการ' ">
+        <div>
+          <ion-item  *ngIf="item.project == undifine " >
+            <ion-label position="fixed" >จัดซื้อโครงการ</ion-label>
+            <ion-input placeholder="-" readonly></ion-input>
+          </ion-item>
+          <ion-item  *ngIf="item.project != undifine " >
+            <ion-label position="fixed" >จัดซื้อโครงการ</ion-label>
+            <ion-input placeholder="{{item.project}}" readonly></ion-input>
+          </ion-item>
+        </div>
+        
+      </div>
+      <div>
+        <ion-item *ngIf="item.date_buy == undifine ">
+          <ion-label position="fixed" >วันที่จัดซื้อ</ion-label>
+          <ion-input placeholder="-" readonly></ion-input>
+        </ion-item>
+        <ion-item *ngIf="item.date_buy != undifine ">
+          <ion-label position="fixed" >วันที่จัดซื้อ</ion-label>
+          <ion-input placeholder="{{item.date_buy}} " readonly></ion-input>
+        </ion-item>
+      </div>
+      
+      <ion-item>
+        <ion-label position="fixed" >สถานที่จัดเก็บ</ion-label>
+        <ion-input placeholder="{{item.keep_place}} " readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed" >ผู้รับผิดชอบ</ion-label>
+        <ion-input placeholder="{{item.attendant}} " readonly ></ion-input>
+      </ion-item>
+      <div>
+        <ion-item *ngIf="item.note == undifine ">
+          <ion-label position="fixed" >หมายเหตุ</ion-label>
+          <ion-input  placeholder="-" readonly ></ion-input>
+        </ion-item>
+        <ion-item *ngIf="item.note != undifine ">
+          <ion-label position="fixed" >หมายเหตุ</ion-label>
+          <ion-input  placeholder="{{item.note}}" readonly ></ion-input>
+        </ion-item>
+      </div>
+      <!-- <ion-button shape="round" (click)="editItem()" color="danger" >แก้ไข</ion-button> -->
+    </ion-card-content>
+  </ion-card>
+</ion-content>
