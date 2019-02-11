@@ -11,8 +11,9 @@ export class Item{
     buy_place:string;
     keep_place:string;
     attendant:string;
-    date_buy?:number;
+    date_buy?:any;
     note?:string;
     project?:string;
     increas?:number
+    id?:string;
 }

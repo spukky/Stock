@@ -8,11 +8,13 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./edit-item.page.scss'],
 })
 export class EditItemPage implements OnInit {
-@Input() item:Item
+@Input() item:Item;
+
   constructor(public modalController: ModalController) { }
 
   ngOnInit() {
     console.log(this.item);
+
     
   }
   editItem(){

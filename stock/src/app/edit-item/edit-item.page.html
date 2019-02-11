@@ -57,12 +57,25 @@
         <ion-input placeholder="{{item.type}} " readonly></ion-input>
       </ion-item> -->
       <ion-item>
-        <ion-label position="fixed" >สถานที่จัดเก็บ</ion-label>
-        <ion-input [(ngModel)]="item. keep_place"></ion-input>
+        <ion-label>สถานที่จัดเก็บของรายการ</ion-label>
+        <ion-select  [(ngModel)]="item.keep_place" >
+          <ion-select-option value="ห้องพักอาจารย์">ห้องพักอาจารย์</ion-select-option>
+          <ion-select-option value="WSN Lab">WSN Lab</ion-select-option>
+          <ion-select-option value="Sparkbit Lab">Sparkbit Lab</ion-select-option>
+          <ion-select-option value="Co-Working Space">Co-Working Space</ion-select-option>
+          <ion-select-option value="ตึก S ชั้น8">ตึก S ชั้น8</ion-select-option>
+          <ion-select-option value="Data Center">Data Center</ion-select-option>
+          <ion-select-option value="Sparkbit WorkPlace">Sparkbit WorkPlace</ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label position="fixed" >ผู้รับผิดชอบ</ion-label>
-        <ion-input [(ngModel)]="item.attendant" ></ion-input>
+        <ion-label>ผู้รับผิดชอบ</ion-label>
+        <ion-select [(ngModel)]="item.attendant" >
+          <ion-select-option value="กิตติยา">กิตติยา</ion-select-option>
+          <ion-select-option value="วรโชติ">วรโชติ</ion-select-option>
+          <ion-select-option value="อมรรัตน์">อมรรัตน์</ion-select-option>
+          <ion-select-option value="ศุพิวัสฒ์">ศุพิวัสฒ์</ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item>
           <ion-label position="fixed" >หมายเหตุ</ion-label>

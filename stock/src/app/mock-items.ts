@@ -24,7 +24,7 @@ export const  mockItems:Item[] = [
             model:'Versa',
             brand:'Fitbit',
             price: 0,
-            balance: 800,
+            balance: 80,
             unit:'กล่อง',
             buy_place: 'บันเลือง ซินอินเตอร์ จำกัด',
             keep_place: 'ห้องพักอาจารย์',

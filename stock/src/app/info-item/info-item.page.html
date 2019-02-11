@@ -68,7 +68,7 @@
         </ion-item>
         <ion-item *ngIf="item.date_buy != undifine ">
           <ion-label position="fixed" >วันที่จัดซื้อ</ion-label>
-          <ion-input placeholder="{{item.date_buy}} " readonly></ion-input>
+          <ion-input placeholder="{{item.date_buy.seconds*1000| date:'dd-MM-yyyy'}} " readonly></ion-input>
         </ion-item>
       </div>
       

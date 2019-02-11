@@ -12,6 +12,9 @@ import { AddItemPageModule } from './add-item/add-item.module';
 import { EditItemPageModule } from './edit-item/edit-item.module';
 import { InfoItemPageModule } from './info-item/info-item.module';
 
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 
 
@@ -26,7 +29,9 @@ import { InfoItemPageModule } from './info-item/info-item.module';
     AppRoutingModule,
     AddItemPageModule,
     EditItemPageModule,
-    InfoItemPageModule
+    InfoItemPageModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
 
   ],
   providers: [

@@ -26,6 +26,16 @@ export class AppComponent {
       icon: 'list'
     },
     {
+      title: 'จัดการหมวดหมู่',
+      url: '/setting',
+      icon: 'settings'
+    },
+    {
+      title: 'จัดการผู้รับผิดชอบ',
+      url: '/setting',
+      icon: 'settings'
+    },
+    {
       title: 'ตั้งค่า',
       url: '/setting',
       icon: 'settings'

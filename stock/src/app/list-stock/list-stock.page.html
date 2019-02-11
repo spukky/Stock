@@ -29,7 +29,7 @@
           <th>หมายเหตุ</th> 
           <th></th> 
         </tr>
-        <tr *ngFor="let item of items; index as i"  >
+        <tr *ngFor="let item of itemsDB; index as i"  >
           <td>{{i+1}}</td>
           <td>{{item.type}} </td> 
           <td>{{item.group}}</td>
@@ -43,7 +43,7 @@
           <td>{{item.note}}</td>
           <td>
               <ion-img  src="assets/img/folder.png"    (click)="infoItem(item)" ></ion-img>
-              <ion-img  src="assets/img/edit.png"    (click)="editItem(item)"></ion-img>
+              <ion-img  src="assets/img/edit.png"    (click)="editItem(i)"></ion-img>
           </td>
         </tr>
 
@@ -54,7 +54,10 @@
             <ion-icon name="add" ></ion-icon>
           </ion-fab-button>
         </ion-fab>     
- 
+        <!-- <ion-item >
+          <ion-button shape="round" (click)="test()" >Add</ion-button>
+
+        </ion-item> -->
   </ion-card>
 
 
