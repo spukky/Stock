@@ -14,7 +14,7 @@ export class AddItemPage implements OnInit {
   constructor(public modalController : ModalController,public alertController: AlertController) {
     
   }
-  @Input() items:Item;
+  @Input() items:Item[];
   item:any
   select:Item = {
     type:null,
@@ -96,22 +96,24 @@ export class AddItemPage implements OnInit {
     
   }
   initialItem(){
-    this.item = this.items;
+    // this.item = this.items;
   }
   cancel(){
     this.modalController.dismiss();
   }
   getItem(searchbar){
-    this.initialItem();
+    // this.initialItem();
     let q = searchbar.target.value;
-    
-    
     if(!q){
       return;    
     }
-    this.item = this.item.filter((v) =>{
+    this.item = this.items.filter((v) =>{
+      console.log("q",q);
+      console.log( "q.trim()",q.trim());
       if(v.name && q.trim() != ''){
-        if(v.name.toLocaleLowerCase().indexOf(q.toLocaleLowerCase()) > -1){
+        if(v.name.toLocaleLowerCase().indexOf(q.trim().toLocaleLowerCase()) > -1){
+          console.log("indexof",v.name.toLocaleLowerCase().indexOf(q.trim().toLocaleLowerCase()));
+         
           return true;
         }
         else{

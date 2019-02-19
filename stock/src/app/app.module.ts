@@ -12,9 +12,10 @@ import { AddItemPageModule } from './add-item/add-item.module';
 import { EditItemPageModule } from './edit-item/edit-item.module';
 import { InfoItemPageModule } from './info-item/info-item.module';
 
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule} from 'angularfire2';
 import { environment } from '../environments/environment';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFirestoreModule,FirestoreSettingsToken  } from 'angularfire2/firestore';
+import { AddPermitPageModule } from './add-permit/add-permit.module';
 
 
 
@@ -30,6 +31,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     AddItemPageModule,
     EditItemPageModule,
     InfoItemPageModule,
+    AddPermitPageModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
 
@@ -37,7 +39,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: {RouteReuseStrategy,FirestoreSettingsToken}, useClass: IonicRouteStrategy,  }
   ],
   bootstrap: [AppComponent]
 })

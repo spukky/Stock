@@ -5,7 +5,7 @@ const routes: Routes = [
   {
     path: '',
     // redirectTo: 'home',
-    redirectTo: 'list-stock',
+    redirectTo: 'list-permit-stock',
     pathMatch: 'full'
   },
   {
@@ -21,7 +21,8 @@ const routes: Routes = [
   { path: 'list-permit-stock', loadChildren: './list-permit-stock/list-permit-stock.module#ListPermitStockPageModule' },
   { path: 'add-item', loadChildren: './add-item/add-item.module#AddItemPageModule' },
   { path: 'edit-item', loadChildren: './edit-item/edit-item.module#EditItemPageModule' },
-  { path: 'info-item', loadChildren: './info-item/info-item.module#InfoItemPageModule' }
+  { path: 'info-item', loadChildren: './info-item/info-item.module#InfoItemPageModule' },
+  { path: 'add-permit', loadChildren: './add-permit/add-permit.module#AddPermitPageModule' }
 
 
 ];

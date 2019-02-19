@@ -16,4 +16,6 @@ export class Item{
     project?:string;
     increas?:number
     id?:string;
+    serial_number?:string;
+    serial_item?:string;
 }

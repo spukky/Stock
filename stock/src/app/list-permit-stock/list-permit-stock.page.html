@@ -5,5 +5,48 @@
 </ion-header>
 
 <ion-content padding>
+  <!-- <ion-button shape="round" (click)="test()" >Add</ion-button> -->
+  <ion-fab vertical="top" horizontal="end" slot="fixed" (click)="addPermit()">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>รายการยืมคืนวัสดุ-ครุภัณฑ์</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <table id="t01">
+        <tr>
+          <th>เลขที่รายการ</th>
+          <th>วันที่ยืม</th>
+          <th>ชื่อผู้ยืม</th>
+          <th>หน่วยงาน</th>
+          <th>จำนวนรายการ</th>
+          <th>วันถุประสงค์</th>
+          <th>ผู้อนุมัติ</th>
+          <th>สถานะ</th>
+          <th>หมายเหตุ</th>
+          <!-- <th></th>  -->
+        </tr>
+        <tr *ngFor="let permit of permitDB; index as i">
+          <!-- <td>{{i+1}}</td> -->
+          <td>{{permit.order_number}} </td>
+          <td>{{permit.date_premit.seconds*1000| date:'dd-MM-yyyy'}}</td>
+          <td>{{permit.name_borrower}}</td>
+          <td>{{permit.department}}</td>
+          <td>{{permit.permit_order.length}}</td>
+          <td>{{permit.objective}}</td>
+          <td>{{permit.approvers}}</td>
+          <td>{{permit.status}}</td>
+          <td>{{permit.note}}</td>
+          <!-- <td>
+            <ion-img  src="assets/img/folder.png"    (click)="infoItem(item)" ></ion-img>
+            <ion-img  src="assets/img/edit.png"    (click)="editItem(i)"></ion-img>
+          </td> -->
+        </tr>
 
+      </table>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

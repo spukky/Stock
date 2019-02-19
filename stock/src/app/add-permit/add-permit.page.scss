@@ -7,7 +7,7 @@ table {
 
   }
   th, td {
-    padding: 10px;
+    padding: 0.5px;
     text-align: center;
     font-style: normal;
     color: rgb(36, 35, 35);
@@ -23,8 +23,19 @@ table {
     background-color: rgb(94, 94, 94);
     color: white;
   }
-ion-img{
-    width: 30px;
-    padding: 5px;
-    height: 30px;
-}
+  ion-icon {
+    font-size: 64px;
+  }
+  ion-card {
+    padding: 0.5px;
+    text-align: center;
+    font-style: normal;
+  }
+  ion-input{
+    padding: 0.5px;
+    
+    font-style: normal;
+  }
+  ion-button{
+    text-align: center;
+  }
