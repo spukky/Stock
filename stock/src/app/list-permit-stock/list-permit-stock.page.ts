@@ -88,7 +88,7 @@ export class ListPermitStockPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((data) => {
-      console.log(data.data);
+      // console.log(data.data);
       if (data.data != undefined) {
         this.db.collection("PermitItems").doc(data.data.order_number).set(data.data);
       }

@@ -19,15 +19,15 @@
       </ion-item>
       <ion-item>
         <ion-label position="fixed">ชื่อ-สกุล</ion-label>
-        <ion-input type="text" [(ngModel)]="permitItem.name_borrower" required></ion-input>
+        <ion-input type="text" [(ngModel)]="permitItem.name_borrower" required maxlength="30"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="fixed">หน่วยงาน</ion-label>
-        <ion-input type="text" [(ngModel)]="permitItem.department" required></ion-input>
+        <ion-input type="text" [(ngModel)]="permitItem.department" required maxlength="30"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="fixed">เพื่อใช้ในงาน</ion-label>
-        <ion-input type="text" [(ngModel)]="permitItem.objective" required></ion-input>
+        <ion-input type="text" [(ngModel)]="permitItem.objective" required maxlength="50"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>ผู้อนุมัติ</ion-label>
@@ -71,22 +71,22 @@
             </td>
             <td>
               <!-- <ion-input type="text" [(ngModel)]="permit.nameItem" ></ion-input> -->
-              <ion-input type="text" placeholder="{{permit.nameItem}}" ></ion-input>
+              <ion-input type="text" placeholder="{{permit.nameItem}}" readonly></ion-input>
             </td>
             <td>
-              <ion-input type="text" placeholder="{{permit.serial_item}}"></ion-input>
+              <ion-input type="text" placeholder="{{permit.serial_item}}" readonly></ion-input>
 
             </td>
             <td>
-              <ion-input type="text" placeholder="{{permit.serial_number}}"></ion-input>
+              <ion-input type="text" placeholder="{{permit.serial_number}}" readonly></ion-input>
+            </td>
+            <td>
+              <ion-input type="number" [(ngModel)]="permit.amount" min="0" max="50"></ion-input>
+              <!-- <ion-input type="text" (ionInput)="amount($event)"></ion-input> -->
 
             </td>
             <td>
-              <ion-input type="text" [(ngModel)]="permit.amount"></ion-input>
-
-            </td>
-            <td>
-              <ion-input type="text" placeholder="{{permit.unit}}"></ion-input>
+              <ion-input type="text" placeholder="{{permit.unit}}" readonly></ion-input>
 
             </td>
             <td>
