@@ -27,7 +27,7 @@
           <th>ผู้อนุมัติ</th>
           <th>สถานะ</th>
           <th>หมายเหตุ</th>
-          <!-- <th></th>  -->
+          <th></th> 
         </tr>
         <tr *ngFor="let permit of permitDB; index as i">
           <!-- <td>{{i+1}}</td> -->
@@ -40,10 +40,9 @@
           <td>{{permit.approvers}}</td>
           <td>{{permit.status}}</td>
           <td>{{permit.note}}</td>
-          <!-- <td>
-            <ion-img  src="assets/img/folder.png"    (click)="infoItem(item)" ></ion-img>
-            <ion-img  src="assets/img/edit.png"    (click)="editItem(i)"></ion-img>
-          </td> -->
+          <td>
+            <ion-img  src="assets/img/returnItem.png"    (click)="returnStock(permit)" ></ion-img>
+          </td>
         </tr>
 
       </table>

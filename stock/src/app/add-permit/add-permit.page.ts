@@ -13,16 +13,8 @@ import { map } from 'rxjs/operators';
 })
 export class AddPermitPage implements OnInit {
   @Input() permit: permitItem[];
-  // @Input() item: Item[];
+  @Input() returnItem:any;
   permitOrder: permitItem["permit_order"] = [];
-  //  = [{
-  //   nameItem: null,
-  //   serial_number: null,
-  //   serial_item: null,
-  //   unit: null,
-  //   amount: null,
-  // }];
-
   history: History[] = [];
   permitItem: permitItem = {
     order_number: null, //เลขรายการยืม
@@ -47,59 +39,29 @@ export class AddPermitPage implements OnInit {
       }));
     this.itemDB.subscribe(res => {
       this.items = res;
-      // console.log("items", this.items);
-
     })
   }
 
   ngOnInit() {
-    // console.log("permit", this.permit);
-    // console.log("item", this.item);
+    console.log("returnItem",this.returnItem);
+    
   }
   itemDB: Observable<Item[]>;
   items: Item[];
-
-  // addPermit() {
-
-  //   let order = this.permitOrder[this.permitOrder.length - 1];
-  //   if (order.nameItem == null || order.amount == null || order.unit == null) {
-  //     if (order.nameItem == null) {
-  //       this.alertFillOrder("ข้อมูลไม่ครบถ้วน", "กรุณากรอกข้อมูลชื่อรายการ");
-  //     }
-  //     else if (order.amount == null) {
-  //       this.alertFillOrder("ข้อมูลไม่ครบถ้วน", "กรุณากรอกข้อมูลจำนวนชิ้นของรายการที่ยืม");
-  //     }
-  //     else if (order.unit == null) {
-  //       this.alertFillOrder("ข้อมูลไม่ครบถ้วน", "กรุณากรอกข้อมูลหน่วยของรายการที่ยืม");
-  //     }
-  //   }
-  //   else {
-  //     this.permitOrder.push(
-  //       {
-  //         nameItem: null,
-  //         serial_number: null,
-  //         serial_item: null,
-  //         unit: null,
-  //         amount: null,
-  //       });
-  //   }
-  // }
   save() {
-    // let order = this.permitOrder[this.permitOrder.length - 1];
     if (this.permitItem.order_number == null || this.permitItem.name_borrower == null || this.permitItem.department == null || this.permitItem.objective == null || this.permitOrder.length == 0) {
       this.alertFillOrder("ข้อมูลไม่ครบถ้วน", "กรุณากรอกข้อมูลใหม่");
     }
     else {
-
       for (let p of this.permit) {
         if (this.permitItem.order_number == p.order_number) {
           this.alertFillOrder("เลขรายการมีอยู่แล้ว", "กรุณากรอกเลขรายการใหม่");
           return;
         }
-
       }
       this.permitItem.permit_order = this.permitOrder;
       this.permitItem.date_premit = firebase.firestore.Timestamp.fromDate(new Date());
+
       if (this.permitItem.approvers == null) {
         this.permitItem.status = "รอการอนุมัติ"
       }
@@ -107,8 +69,29 @@ export class AddPermitPage implements OnInit {
         this.permitItem.status = "กำลังยืม"
       }
       // console.log("permit", this.permitItem);
+      if (!this.permitOrder[this.permitOrder.length - 1].amount) {
+        this.alertFillOrder("กรอกข้อมูลไม่ครบถ้วน", "กรุณากรอกจำนวนวัสดุ ครุภัณฑ์ที่ต้องการยืม");
+      }
+      else {
+        if (this.permitOrder[this.permitOrder.length - 1].amount > 0) {
+          for (let key in this.items) {
+            if (this.permitOrder[this.permitOrder.length - 1].nameItem == this.items[key].name) {
+              if (this.permitOrder[this.permitOrder.length - 1].amount > this.items[key].balance) {
+                this.alertFillOrder("ไม่สามารถยืม" + " " + this.permitOrder[this.permitOrder.length - 1].nameItem + " " + "ได้", "กรุณากรอกจำนวนครุภัณฑ์ใหม่");
+                return;
+              }
+              else {
+                this.saveAlert(this.permitItem);
+              }
+              return;
+            }
+          }
+        }
+        else {
+          this.alertFillOrder("ไม่สามารถยืมได้", "กรอกจำนวนไม่ถุกต้อง")
+        }
+      }
 
-      this.saveAlert(this.permitItem);
     }
   }
 
@@ -121,6 +104,7 @@ export class AddPermitPage implements OnInit {
   }
   getItem(searchbar) {
     let q = searchbar.target.value;
+    // console.log("items", this.items);
     // console.log("q", q);
     this.fillItem = this.items.filter((v) => {
       if (v.name && q.trim()) {
@@ -132,6 +116,7 @@ export class AddPermitPage implements OnInit {
         }
       }
     });
+
   }
 
   // selectItem(item) {
@@ -208,6 +193,8 @@ export class AddPermitPage implements OnInit {
   // }
 
   selectItem(item) {
+    console.log("item", item);
+
     if (this.permitOrder.length == 0) {
       this.permitOrder.push(
         {
@@ -217,11 +204,11 @@ export class AddPermitPage implements OnInit {
           unit: item.unit,
           amount: null,
         });
-      if (this.permitOrder[this.permitOrder.length - 1].serial_item == undefined || this.permitOrder[this.permitOrder.length - 1].serial_number == undefined) {
-        if (this.permitOrder[this.permitOrder.length - 1].serial_item == undefined) {
+      if (this.permitOrder[this.permitOrder.length - 1].serial_item == null || this.permitOrder[this.permitOrder.length - 1].serial_number == null) {
+        if (this.permitOrder[this.permitOrder.length - 1].serial_item == null) {
           this.permitOrder[this.permitOrder.length - 1].serial_item = "-"
         }
-        else if (this.permitOrder[this.permitOrder.length - 1].serial_number == undefined) {
+        else if (this.permitOrder[this.permitOrder.length - 1].serial_number == null) {
           this.permitOrder[this.permitOrder.length - 1].serial_number = "-"
         }
         else {
@@ -229,44 +216,55 @@ export class AddPermitPage implements OnInit {
           this.permitOrder[this.permitOrder.length - 1].serial_number = item.serial_number;
         }
       }
+      // console.log("item balance",item.balance);
+
       // else {
-        this.select.push(item);
+      this.select.push(item);
+      this.fillItem = [];
       // }
 
     }
     else {
+      // console.log("item else", item);
+
       if (!this.permitOrder[this.permitOrder.length - 1].amount) {
         this.alertFillOrder("ข้อมูลไม่ครบถ้วน", "กรุณากรอกจำนวนของวัสดุ-ครุภัณฑ์");
       }
       else {
-        if (this.permitOrder[this.permitOrder.length - 1].amount > item.balance) {
-          this.alertFillOrder("ไม่สามารถยืม" + " " + this.permitOrder[this.permitOrder.length - 1].nameItem + " " + "ได้", "กรุณากรอกจำนวนครุภัณฑ์ใหม่")
+        // console.log("this amount", this.permitOrder[this.permitOrder.length - 1].amount);
+        if (this.permitOrder[this.permitOrder.length - 1].amount > 0) {
+          // console.log("amount > 0");
+
+          if (this.permitOrder[this.permitOrder.length - 1].amount > this.select[this.select.length - 1].balance) {
+            this.alertFillOrder("ไม่สามารถยืม" + " " + this.permitOrder[this.permitOrder.length - 1].nameItem + " " + "ได้", "กรุณากรอกจำนวนครุภัณฑ์ใหม่")
+          }
+          else {
+            this.permitOrder.push(
+              {
+                nameItem: item.name,
+                serial_number: null,
+                serial_item: null,
+                unit: item.unit,
+                amount: null,
+              });
+            if (this.permitOrder[this.permitOrder.length - 1].serial_item == null || this.permitOrder[this.permitOrder.length - 1].serial_number == null) {
+              if (this.permitOrder[this.permitOrder.length - 1].serial_item == null) {
+                this.permitOrder[this.permitOrder.length - 1].serial_item = "-"
+              }
+              else if (this.permitOrder[this.permitOrder.length - 1].serial_number == null) {
+                this.permitOrder[this.permitOrder.length - 1].serial_number = "-"
+              }
+              else {
+                this.permitOrder[this.permitOrder.length - 1].serial_item = item.serial_item;
+                this.permitOrder[this.permitOrder.length - 1].serial_number = item.serial_number;
+              }
+            }
+            this.select.push(item);
+            this.fillItem = [];
+          }
         }
         else {
-          this.permitOrder.push(
-            {
-              nameItem: item.name,
-              serial_number: null,
-              serial_item: null,
-              unit: item.unit,
-              amount: null,
-            });
-          // this.select.push(item);
-          if (this.permitOrder[this.permitOrder.length - 1].serial_item == undefined || this.permitOrder[this.permitOrder.length - 1].serial_number == undefined) {
-            if (this.permitOrder[this.permitOrder.length - 1].serial_item == undefined) {
-              this.permitOrder[this.permitOrder.length - 1].serial_item = "-"
-            }
-            else if (this.permitOrder[this.permitOrder.length - 1].serial_number == undefined) {
-              this.permitOrder[this.permitOrder.length - 1].serial_number = "-"
-            }
-            else {
-              this.permitOrder[this.permitOrder.length - 1].serial_item = item.serial_item;
-              this.permitOrder[this.permitOrder.length - 1].serial_number = item.serial_number;
-            }
-          }
-          // else {
-            this.select.push(item);
-          // }
+          this.alertFillOrder("ไม่สามารถยืมได้", "กรอกจำนวนไม่ถุกต้อง")
         }
       }
       this.fillItem = [];
@@ -330,8 +328,8 @@ export class AddPermitPage implements OnInit {
           handler: () => {
             console.log('Confirm Okay');
             this.updateHistory();
-            // this.modalController.dismiss(permit)
-            this.modalController.dismiss();
+            this.modalController.dismiss(permit)
+            // this.modalController.dismiss();
           }
         }
       ]
@@ -339,41 +337,30 @@ export class AddPermitPage implements OnInit {
     await alert.present();
   }
   updateHistory() {
-    console.log("update History");
-    
     let timeNow = firebase.firestore.Timestamp.fromDate(new Date());
-    console.log("select",this.select);
-    
+
     for (let key in this.select) {
-      console.log("this.select", key, this.select[key]);
-      this.updateStock(this.select[key]);
-      // this.db.collection<Item>("Items").doc(this.select[key].id).collection("History").add({
-      //   order_id: this.permitItem.order_number,
-      //   date_update: timeNow,
-      //   amount: this.permitOrder[key].amount,
-      //   // update_by: permit.
-      //   unit: this.permitOrder[key].unit,
-      //   status: "ยืม",
-      // });
+      // console.log("this.select", key, this.select[key]);
+      this.updateStock(this.select[key], key);
+      this.db.collection<Item>("Items").doc(this.select[key].id).collection("History").add({
+        order_id: this.permitItem.order_number,
+        date_update: timeNow,
+        amount: this.permitOrder[key].amount,
+        // update_by: permit.
+        unit: this.permitOrder[key].unit,
+        status: "borrow",
+      });
     }
   }
-  updateStock(item) {
-    console.log("updateStock");
-console.log("item",item);
-
-    // for (let key in this.items) {
-    //   if (item.id == this.items[key].id) {
-    //     // this.db.collection<Item>("Items").doc(item.id).update({
-    //     //   balance: this.items[key].balance - item.balance
-    //     // })
-    //     console.log("item[key]", item[key].id);
-    //     console.log("select[key]", this.items[key].id);
-    //     console.log("balace", key, this.items[key].balance - item.balance);
-
-    //   }
-    // }
-
-
+  updateStock(item, i) {
+    for (let key in this.items) {
+      if (item.id == this.items[key].id) {
+        this.db.collection<Item>("Items").doc(item.id).update({
+          balance: this.items[key].balance - this.permitOrder[i].amount
+        })
+        return;
+      }
+    }
   }
 
 }

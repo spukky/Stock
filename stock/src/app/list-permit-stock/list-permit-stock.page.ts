@@ -56,6 +56,7 @@ export class ListPermitStockPage implements OnInit {
   permitItems: Observable<permitItem[]>;
   permitDB: permitItem[];
   permitColloction: AngularFirestoreCollection<permitItem>;
+  returnItem:any
 
   // test() {
   //   for (let permit of this.permition) {
@@ -75,6 +76,11 @@ export class ListPermitStockPage implements OnInit {
     this.addPermitModal();
 
   }
+  returnStock(permit){
+    console.log("permit",permit);
+    this.returnItem = permit;
+    
+  }
 
 
   async addPermitModal() {
@@ -83,8 +89,8 @@ export class ListPermitStockPage implements OnInit {
     const modal = await this.modalController.create({
       component: AddPermitPage,
       componentProps:
-       { permit: this.permitDB,
-        item: this.item
+       { 
+         permit: this.permitDB,
       }
     });
     modal.onDidDismiss().then((data) => {
