@@ -5,7 +5,8 @@ const routes: Routes = [
   {
     path: '',
     // redirectTo: 'home',
-    redirectTo: 'list-permit-stock',
+    // redirectTo: 'list-permit-stock',
+    redirectTo: 'borrow-purchase-return',
     pathMatch: 'full'
   },
   {
@@ -22,7 +23,9 @@ const routes: Routes = [
   { path: 'add-item', loadChildren: './add-item/add-item.module#AddItemPageModule' },
   { path: 'edit-item', loadChildren: './edit-item/edit-item.module#EditItemPageModule' },
   { path: 'info-item', loadChildren: './info-item/info-item.module#InfoItemPageModule' },
-  { path: 'add-permit', loadChildren: './add-permit/add-permit.module#AddPermitPageModule' }
+  { path: 'add-permit', loadChildren: './add-permit/add-permit.module#AddPermitPageModule' },
+  { path: 'return-item', loadChildren: './return-item/return-item.module#ReturnItemPageModule' },
+  { path: 'borrow-purchase-return', loadChildren: './borrow-purchase-return/borrow-purchase-return.module#BorrowPurchaseReturnPageModule' }
 
 
 ];
