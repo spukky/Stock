@@ -9,14 +9,14 @@
     <ion-card-content>
       <ion-grid>
         <ion-row>
-          <ion-col size="3">
+          <ion-col size="4">
             <ion-card>
               <ion-radio-group>
                 <ion-list-header>
                   เลือกโหมด
                 </ion-list-header>
                 <ion-item>
-                  <ion-label>ฺBorrow</ion-label>
+                  <ion-label>Borrow</ion-label>
                   <ion-radio value="borrow" (ionSelect)="modeItem('borrow')"></ion-radio>
                 </ion-item>
                 <!-- <ion-item>
@@ -45,14 +45,16 @@
                 </div>
                 </ion-card>
           </ion-col>
-          <ion-col *ngIf="activeAmout">
+          <ion-col *ngIf="activeAmout" size="4">
               <h3>กรอกจำนวนของสินค้าที่ต้องการทำรายการ</h3>
               <ion-card>
                   <ion-item>
                       <ion-label posotion="fixed">Item: </ion-label>
                       <ion-input placeholder="{{this.select.item}}" readonly></ion-input>
                       <ion-label posotion="fixed">Amount: </ion-label>
-                      <!-- code 8 spacebar code 13 enter code 0 don't know code 110 poit -->
+                      <!-- code 8 spacebar code 13 enter code 0 don't know code 110 poit
+                      https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
+                    https://stackoverflow.com/questions/19233415/how-to-make-type-number-to-positive-numbers-only -->
                       <ion-input type="number" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13 || event.charCode == 110) ? null : event.charCode >= 48 && event.charCode <= 57" [(ngModel)]="amount"></ion-input>
                     </ion-item>
               </ion-card>
@@ -65,10 +67,10 @@
     </ion-card-content>
     <ion-card-content>
 
-        <ion-col size="3">
+        <ion-col size="6">
             <h4>ประวัติการทำรายการ</h4>
             <ion-card >
-              <div *ngFor="let item of this.history" >
+              <div *ngFor="let item of this.history; index as i " >
                   <ion-item>
                       <ion-label posotion="fixed">Item: </ion-label>
                       <ion-input placeholder="{{item.item}}" readonly></ion-input>
@@ -79,8 +81,8 @@
                       
                       <ion-label posotion="fixed">Status: </ion-label>
                       <ion-input placeholder="{{item.status}}" readonly></ion-input>
-                      <div *ngIf= "item.status == 'borrow' ">
-                          <ion-button shape="round" (click)="return(item)" disabled="{{returnAble}}">Return</ion-button>
+                      <div *ngIf= "item.status == 'Borrow' ">
+                          <ion-button shape="round" (click)="return(item,i)" disabled="{{item.active}}">Return</ion-button>
                       </div>
                     </ion-item>
                     

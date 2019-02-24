@@ -16,10 +16,6 @@ import { AngularFireModule} from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule,FirestoreSettingsToken  } from 'angularfire2/firestore';
 import { AddPermitPageModule } from './add-permit/add-permit.module';
-<<<<<<< HEAD
-=======
-//import { ReturnItemPageModule } from './return-item/return-item.module';
->>>>>>> 9d6b70d2b987800c9ce5dc9fb93bf4e71189445b
 import { BorrowPurchaseReturnPageModule } from './borrow-purchase-return/borrow-purchase-return.module';
 
 
@@ -37,10 +33,6 @@ import { BorrowPurchaseReturnPageModule } from './borrow-purchase-return/borrow-
     EditItemPageModule,
     InfoItemPageModule,
     AddPermitPageModule,
-<<<<<<< HEAD
-=======
-    //ReturnItemPageModule,
->>>>>>> 9d6b70d2b987800c9ce5dc9fb93bf4e71189445b
     BorrowPurchaseReturnPageModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
