@@ -10,6 +10,7 @@ export class permitItem{
         serial_item:string;
         unit:string;
         amount:number; //จำนวนวัสดุครุภัณฑ์ที่ยืม 
+        id_item:string;
     }>;
     approvers:string;
     note?:string;

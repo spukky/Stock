@@ -24,7 +24,6 @@ const routes: Routes = [
   { path: 'edit-item', loadChildren: './edit-item/edit-item.module#EditItemPageModule' },
   { path: 'info-item', loadChildren: './info-item/info-item.module#InfoItemPageModule' },
   { path: 'add-permit', loadChildren: './add-permit/add-permit.module#AddPermitPageModule' },
-  { path: 'return-item', loadChildren: './return-item/return-item.module#ReturnItemPageModule' },
   { path: 'borrow-purchase-return', loadChildren: './borrow-purchase-return/borrow-purchase-return.module#BorrowPurchaseReturnPageModule' }
 
 

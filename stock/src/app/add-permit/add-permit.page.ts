@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 })
 export class AddPermitPage implements OnInit {
   @Input() permit: permitItem[];
-  @Input() returnItem:any;
+  // @Input() returnItem:any;
   permitOrder: permitItem["permit_order"] = [];
   history: History[] = [];
   permitItem: permitItem = {
@@ -43,7 +43,7 @@ export class AddPermitPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log("returnItem",this.returnItem);
+    // console.log("returnItem",this.returnItem);
     
   }
   itemDB: Observable<Item[]>;
@@ -203,6 +203,7 @@ export class AddPermitPage implements OnInit {
           serial_item: null,
           unit: item.unit,
           amount: null,
+          id_item:item.id
         });
       if (this.permitOrder[this.permitOrder.length - 1].serial_item == null || this.permitOrder[this.permitOrder.length - 1].serial_number == null) {
         if (this.permitOrder[this.permitOrder.length - 1].serial_item == null) {
@@ -246,6 +247,7 @@ export class AddPermitPage implements OnInit {
                 serial_item: null,
                 unit: item.unit,
                 amount: null,
+                id_item: item.id
               });
             if (this.permitOrder[this.permitOrder.length - 1].serial_item == null || this.permitOrder[this.permitOrder.length - 1].serial_number == null) {
               if (this.permitOrder[this.permitOrder.length - 1].serial_item == null) {
@@ -328,8 +330,7 @@ export class AddPermitPage implements OnInit {
           handler: () => {
             console.log('Confirm Okay');
             this.updateHistory();
-            this.modalController.dismiss(permit)
-            // this.modalController.dismiss();
+            this.modalController.dismiss(permit);
           }
         }
       ]
@@ -349,6 +350,7 @@ export class AddPermitPage implements OnInit {
         // update_by: permit.
         unit: this.permitOrder[key].unit,
         status: "borrow",
+        id_item: this.permitOrder[key].id_item,
       });
     }
   }

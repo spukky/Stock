@@ -79,7 +79,7 @@ export class ListPermitStockPage implements OnInit {
   returnStock(permit){
     console.log("permit",permit);
     this.returnItem = permit;
-    
+    // this.returnModal();
   }
 
 
@@ -102,4 +102,21 @@ export class ListPermitStockPage implements OnInit {
     })
     return await modal.present();
   }
+
+  // async returnModal(){
+  //   const modal = await this.modalController.create({
+  //     component: ,
+  //     componentProps:{
+  //       returnItem:this.returnItem,
+  //     }
+  //   });
+  //   modal.onDidDismiss().then((data) => {
+  //     console.log(data.data);
+  //     if (data.data != undefined) {
+  //       // this.db.collection("PermitItems").doc(data.data.order_number).set(data.data);
+  //     }
+
+  //   })
+  //   return await modal.present();
+  // }
 }

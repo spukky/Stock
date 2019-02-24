@@ -52,7 +52,8 @@
                       <ion-label posotion="fixed">Item: </ion-label>
                       <ion-input placeholder="{{this.select.item}}" readonly></ion-input>
                       <ion-label posotion="fixed">Amount: </ion-label>
-                      <ion-input [(ngModel)]="amount"></ion-input>
+                      <!-- code 8 spacebar code 13 enter code 0 don't know code 110 poit -->
+                      <ion-input type="number" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13 || event.charCode == 110) ? null : event.charCode >= 48 && event.charCode <= 57" [(ngModel)]="amount"></ion-input>
                     </ion-item>
               </ion-card>
             </ion-col>
@@ -79,7 +80,7 @@
                       <ion-label posotion="fixed">Status: </ion-label>
                       <ion-input placeholder="{{item.status}}" readonly></ion-input>
                       <div *ngIf= "item.status == 'borrow' ">
-                          <ion-button shape="round" (click)="return(item)" readonly ="readAble">Return</ion-button>
+                          <ion-button shape="round" (click)="return(item)" disabled="{{returnAble}}">Return</ion-button>
                       </div>
                     </ion-item>
                     
