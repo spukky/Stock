@@ -24,6 +24,10 @@ const routes: Routes = [
   { path: 'edit-item', loadChildren: './edit-item/edit-item.module#EditItemPageModule' },
   { path: 'info-item', loadChildren: './info-item/info-item.module#InfoItemPageModule' },
   { path: 'add-permit', loadChildren: './add-permit/add-permit.module#AddPermitPageModule' },
+<<<<<<< HEAD
+=======
+  //{ path: 'return-item', loadChildren: './return-item/return-item.module#ReturnItemPageModule' },
+>>>>>>> 9d6b70d2b987800c9ce5dc9fb93bf4e71189445b
   { path: 'borrow-purchase-return', loadChildren: './borrow-purchase-return/borrow-purchase-return.module#BorrowPurchaseReturnPageModule' }
 
 
