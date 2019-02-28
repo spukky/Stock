@@ -39,12 +39,11 @@ export class AddPermitPage implements OnInit {
       }));
     this.itemDB.subscribe(res => {
       this.items = res;
-    })
+    });
   }
 
   ngOnInit() {
     // console.log("returnItem",this.returnItem);
-    
   }
   itemDB: Observable<Item[]>;
   items: Item[];
@@ -63,10 +62,10 @@ export class AddPermitPage implements OnInit {
       this.permitItem.date_premit = firebase.firestore.Timestamp.fromDate(new Date());
 
       if (this.permitItem.approvers == null) {
-        this.permitItem.status = "รอการอนุมัติ"
+        this.permitItem.status = "Waiting for approval"
       }
       else {
-        this.permitItem.status = "กำลังยืม"
+        this.permitItem.status = "Approve"
       }
       // console.log("permit", this.permitItem);
       if (!this.permitOrder[this.permitOrder.length - 1].amount) {
@@ -118,80 +117,6 @@ export class AddPermitPage implements OnInit {
     });
 
   }
-
-  // selectItem(item) {
-  //   if (this.permitOrder.length > 1) {
-  //     if (this.permitOrder[this.permitOrder.length - 1].amount == null) {
-  //       this.alertFillOrder("ข้อมูลไม่ครบถ้วน", "กรุณากรอกข้อมูลจำนวนชิ้นของรายการที่ยืม");
-  //     }
-  //     else {
-
-  //       this.permitOrder.push(
-  //         {
-  //           nameItem: null,
-  //           serial_number: null,
-  //           serial_item: null,
-  //           unit: null,
-  //           amount: null,
-  //         });
-
-  //       if (!item.serial_item || !item.serial_number) {
-  //         this.permitOrder[this.permitOrder.length - 1].serial_item = "-";
-  //         this.permitOrder[this.permitOrder.length - 1].serial_number = "-";
-  //       }
-  //       else {
-  //         this.permitOrder[this.permitOrder.length - 1].serial_item = item.serial_item;
-  //         this.permitOrder[this.permitOrder.length - 1].serial_number = item.serial_number;
-  //       }
-
-
-  //       this.permitOrder[this.permitOrder.length - 1].nameItem = item.name;
-  //       this.permitOrder[this.permitOrder.length - 1].unit = item.unit;
-  //       // console.log("amout>1",this.permitOrder[this.permitOrder.length -1 ].amount);
-
-  //       this.select.push(item);
-  //       console.log("permititem",this.permitOrder);
-  //       // console.log("this select", this.select);
-  //     }
-  //   }
-  //   else {
-  //     this.permitOrder.push(
-  //       {
-  //         nameItem: null,
-  //         serial_number: null,
-  //         serial_item: null,
-  //         unit: null,
-  //         amount: null,
-  //       });
-  //       if (this.permitOrder[this.permitOrder.length - 1].amount == null) {
-  //         this.alertFillOrder("ข้อมูลไม่ครบถ้วน", "กรุณากรอกข้อมูลจำนวนชิ้นของรายการที่ยืม");
-  //       }
-  //     if (!item.serial_item || !item.serial_number) {
-  //       this.permitOrder[this.permitOrder.length - 1].serial_item = "-";
-  //       this.permitOrder[this.permitOrder.length - 1].serial_number = "-";
-  //     }
-  //     else {
-  //       this.permitOrder[this.permitOrder.length - 1].serial_item = item.serial_item;
-  //       this.permitOrder[this.permitOrder.length - 1].serial_number = item.serial_number;
-  //     }
-
-  //     this.permitOrder[this.permitOrder.length - 1].nameItem = item.name;
-  //     this.permitOrder[this.permitOrder.length - 1].unit = item.unit;
-
-
-  //     if(this.permitOrder[this.permitOrder.length-1].amount != null){
-
-  //     }
-  //     this.select.push(item);
-
-  //     console.log("permititem",this.permitOrder);
-
-  //   }
-
-  //   this.fillItem = [];
-
-  // }
-
   selectItem(item) {
     console.log("item", item);
 
@@ -243,8 +168,8 @@ export class AddPermitPage implements OnInit {
             this.permitOrder.push(
               {
                 nameItem: item.name,
-                serial_number: null,
-                serial_item: null,
+                serial_number: "-",
+                serial_item: "-",
                 unit: item.unit,
                 amount: null,
                 id_item: item.id

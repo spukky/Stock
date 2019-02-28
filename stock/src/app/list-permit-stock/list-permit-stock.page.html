@@ -40,8 +40,10 @@
           <td>{{permit.approvers}}</td>
           <td>{{permit.status}}</td>
           <td>{{permit.note}}</td>
-          <td>
-            <ion-img  src="assets/img/returnItem.png"    (click)="returnStock(permit)" ></ion-img>
+          <td >
+            <!-- <div *ngIf="permit.status == 'Approve' || permit.status == 'Returning' "> -->
+              <ion-img  src="assets/img/returnItem.png"    (click)="returnStock(permit)" ></ion-img>
+            <!-- </div> -->
           </td>
         </tr>
 

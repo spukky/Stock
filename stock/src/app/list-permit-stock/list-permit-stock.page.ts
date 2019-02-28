@@ -8,6 +8,7 @@ import { mockPremitItems } from '../mock-permit-item';
 import { ModalController } from '@ionic/angular';
 import { AddPermitPage } from '../add-permit/add-permit.page';
 import { Item } from '../item';
+import { ReturnItemPage } from '../return-item/return-item.page';
 
 @Component({
   selector: 'app-list-permit-stock',
@@ -28,7 +29,8 @@ export class ListPermitStockPage implements OnInit {
       }));
     this.permitItems.subscribe(res => {
       this.permitDB = res;
-      // console.log(typeof(this.permitDB[1].permit_order));
+    //  console.log("permitDB",this.permitDB);
+     
     });
     this.itemDB = db.collection<Item>("Items").snapshotChanges().pipe(
       map(actions => {
@@ -79,7 +81,7 @@ export class ListPermitStockPage implements OnInit {
   returnStock(permit){
     console.log("permit",permit);
     this.returnItem = permit;
-    // this.returnModal();
+    this.returnModal();
   }
 
 
@@ -103,20 +105,21 @@ export class ListPermitStockPage implements OnInit {
     return await modal.present();
   }
 
-  // async returnModal(){
-  //   const modal = await this.modalController.create({
-  //     component: ,
-  //     componentProps:{
-  //       returnItem:this.returnItem,
-  //     }
-  //   });
-  //   modal.onDidDismiss().then((data) => {
-  //     console.log(data.data);
-  //     if (data.data != undefined) {
-  //       // this.db.collection("PermitItems").doc(data.data.order_number).set(data.data);
-  //     }
+  async returnModal(){
+    const modal = await this.modalController.create({
+      component: ReturnItemPage ,
+      componentProps:{
+        returnItem:this.returnItem,
+      }
+    });
+    modal.onDidDismiss().then((data) => {
+      console.log(data.data);
+      if (data.data != undefined) {
+        // this.db.collection("PermitItems").doc(data.data.order_number).set(data.data);
+        this.db.collection("PermitItems").doc(data.data.id).update(data.data);
+      }
 
-  //   })
-  //   return await modal.present();
-  // }
+    })
+    return await modal.present();
+  }
 }
