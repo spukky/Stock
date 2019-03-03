@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { mockItems } from '../mock-items';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { AddItemPage } from '../add-item/add-item.page';
 import { Item } from '../item';
 import { EditItemPage } from '../edit-item/edit-item.page';
@@ -9,6 +9,8 @@ import * as firebase from 'firebase/app'
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { PurchaseItemPage } from '../purchase-item/purchase-item.page';
+
 
 @Component({
   selector: 'app-list-stock',
@@ -17,7 +19,7 @@ import { map } from 'rxjs/operators';
 })
 export class ListStockPage implements OnInit {
 
-  constructor(public modalController: ModalController, private db: AngularFirestore) {
+  constructor(public modalController: ModalController, private db: AngularFirestore, public alertController: AlertController) {
     this.itemsCollection = db.collection<Item>("Items");
     this.dataItems = this.itemsCollection.snapshotChanges().pipe(
       map(actions => {
@@ -29,8 +31,6 @@ export class ListStockPage implements OnInit {
       }));
     this.dataItems.subscribe(res => {
       this.itemsDB = res;
-
-
     });
   }
 
@@ -41,6 +41,7 @@ export class ListStockPage implements OnInit {
   itemsDB: Item[];
   ngOnInit() {
   }
+
   // test() {
   //   for (let key in this.items) {
   //       this.db.collection("Items").add(this.items[key])
@@ -62,9 +63,7 @@ export class ListStockPage implements OnInit {
     this.editItemModal(item);
   }
   addItem() {
-    // console.log("Add");
-    this.addItemModal();
-
+    this.selectAddItemsAlert();
   }
   async addItemModal() {
     const modal = await this.modalController.create({
@@ -83,6 +82,21 @@ export class ListStockPage implements OnInit {
           this.itemsCollection.doc(data.data.id).update(data.data);
         }
       }
+    });
+    return await modal.present();
+  }
+
+  async addPurchaseModal() {
+    const modal = await this.modalController.create({
+      component: PurchaseItemPage,
+      componentProps: {
+        items: this.itemsDB
+      }
+    });
+    modal.onDidDismiss().then((data) => {
+      if(data.data != undefined)
+      console.log("data", data);
+      this.db.collection("Purchases").add(data.data);
     });
     return await modal.present();
   }
@@ -112,5 +126,29 @@ export class ListStockPage implements OnInit {
     });
     return await modal.present();
   }
+
+
+  async selectAddItemsAlert() {
+    const alert = await this.alertController.create({
+      header: "ต้องการทำรายการเพิ่มสินค้า",
+      message: 'กรุณาลือกรูปแบบการทำรายการสินค้า',
+      buttons: [
+        {
+          text: 'เพิ่มตามรายการ',
+          handler: () => {
+            this.addItemModal();
+          }
+        },
+        {
+          text: 'เพิ่มตามใบสั่งซื้อ',
+          handler: () => {
+            this.addPurchaseModal();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
 
 }

@@ -15,7 +15,9 @@
     <ion-card-content>
       <ion-item>
         <ion-label position="fixed">เลขรายการยืม</ion-label>
-        <ion-input type="text" [(ngModel)]="permitItem.order_number" required maxlength="10" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13 || event.charCode == 110) ? null : event.charCode >= 48 && event.charCode <= 57" ></ion-input>
+        <ion-input type="text" [(ngModel)]="permitItem.order_number" required maxlength="10"
+          onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13 || event.charCode == 110) ? null : event.charCode >= 48 && event.charCode <= 57">
+        </ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="fixed">ชื่อ-สกุล</ion-label>
@@ -27,7 +29,7 @@
       </ion-item>
       <ion-item>
         <ion-label position="fixed">เพื่อใช้ในงาน</ion-label>
-        <ion-input type="text" [(ngModel)]="permitItem.objective" required maxlength="50" ></ion-input>
+        <ion-input type="text" [(ngModel)]="permitItem.objective" required maxlength="50"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>ผู้อนุมัติ</ion-label>
@@ -38,13 +40,13 @@
           <ion-select-option value="สกุณา">สกุณา</ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-item >
+      <ion-item>
         <ion-label position="fixed">รายการของ</ion-label>
         <ion-input type="text" (ionInput)="getItem($event)" clear-input="true" required></ion-input>
       </ion-item>
       <ion-item *ngFor="let item of this.fillItem" (click)="selectItem(item)">
-          <h6 >{{item.name}}</h6>
-        </ion-item >
+        <h6>{{item.name}}</h6>
+      </ion-item>
     </ion-card-content>
 
     <ion-card>
@@ -81,7 +83,9 @@
               <ion-input type="text" placeholder="{{permit.serial_number}}" readonly></ion-input>
             </td>
             <td>
-              <ion-input type="number" [(ngModel)]="permit.amount" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13 || event.charCode == 110) ? null : event.charCode >= 48 && event.charCode <= 57"></ion-input>
+              <ion-input type="number" [(ngModel)]="permit.amount" min="0"
+                onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13 || event.charCode == 110) ? null : event.charCode >= 48 && event.charCode <= 57">
+              </ion-input>
               <!-- <ion-input type="text" (ionInput)="amount($event)"></ion-input> -->
 
             </td>

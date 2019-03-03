@@ -9,8 +9,7 @@ table, th, td {
 th, td {
   padding: 0.5px;
   text-align: center;
-  font-style: initial;
-  // font-size: 15px;
+  font-style: normal;
   color: rgb(36, 35, 35);
  
 }
@@ -18,14 +17,14 @@ table#t01 tr:nth-child(even) {
   background-color: rgb(255, 255, 255);
 }
 table#t01 tr:nth-child(odd) {
- background-color: #6dffda;
+ background-color: rgb(154, 255, 247)
 }
 table#t01 th {
   background-color: rgb(134, 134, 134);
   color: white;
 }
 ion-icon {
-  font-size: 50px;
+  font-size: 64px;
 }
 ion-card {
   padding: 0.5px;
@@ -39,9 +38,3 @@ ion-input{
 ion-button{
   text-align: center;
 }
-ion-img{
-    width: 30px;
-    padding: 5px;
-    height: 30px;
-}
-

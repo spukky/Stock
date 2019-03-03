@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>เพิ่มใบรายการสั่งซื้อ</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        รายการใบสั่งซื้อสินค้า
+      </ion-card-title>
+      <ion-card-subtitle>
+
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="fixed">เลขรายการสั่งซื้อ</ion-label>
+        <ion-input type="text" required maxlength="10" [(ngModel)]="purchaseOrder.order_purchase"
+          onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13 || event.charCode == 110) ? null : event.charCode >= 48 && event.charCode <= 57">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed">วันที่</ion-label>
+        <ion-input type="date" [(ngModel)]="purchaseOrder.purchase_date" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed">ชื่อสถานที่สั่งซื้อ</ion-label>
+        <ion-input type="text" [(ngModel)]="purchaseOrder.purchase_buy" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed">ที่อยู่</ion-label>
+        <ion-input type="text" [(ngModel)]="purchaseOrder.purchase_address" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed">ผู้จัดซื้อ</ion-label>
+        <ion-input type="text" [(ngModel)]="purchaseOrder.name_buyer" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed">หมายเหตุ</ion-label>
+        <ion-input type="text" [(ngModel)]="purchaseOrder.note" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed">รายการของ</ion-label>
+        <ion-input type="text" (ionInput)="getItem($event)" clear-input="true" required></ion-input>
+        <!-- <ion-badge color="danger" (click)="addNewItem()">เพิ่มชนิดใหม่</ion-badge> -->
+        <ion-button color="danger" (click)="addNewItem()" expanf="full" shape="round" disabled="{{addItemOpen}}">
+          เพิ่มชนิดใหม่</ion-button>
+      </ion-item>
+
+      <ion-item *ngFor="let item of fillItem" (click)="selectItem(item)">
+        <h6>{{item.name}}</h6>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <table style="width:100%" id="t01">
+        <tr>
+          <th>ลำดับ</th>
+          <th>รหัสสินค้า</th>
+          <th>สินค้า</th>
+          <th>จำนวนที่สั่งซื้อ</th>
+          <th>หน่วย</th>
+          <th>ราคาสั่งซื้อ</th>
+          <th>
+          </th>
+        </tr>
+        <tr *ngFor="let item of purchaseItems;index as i">
+          <td>
+            {{i+1}}
+          </td>
+          <td>
+            <ion-input type="text" [(ngModel)]="item.product_no" required
+            onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13 || event.charCode == 110) ? null : event.charCode >= 48 && event.charCode <= 90"></ion-input>
+          </td>
+          <td>
+            <ion-input type="text" placeholder="{{item.product_detail}}" readonly required></ion-input>
+          </td>
+          <td>
+            <ion-input type="number" [(ngModel)]="item.product_amount" required
+            onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13 || event.charCode == 110) ? null : event.charCode >= 48 && event.charCode <= 57"></ion-input>
+          </td>
+          <td>
+            <ion-input type="text" placeholder="{{item.product_unit}}" readonly required></ion-input>
+          </td>
+          <td>
+            <ion-input type="number" [(ngModel)]="item.product_price" required></ion-input>
+          </td>
+          <td>
+            <ion-icon slot="end" size="small" name="remove-circle-outline" position="fixed" color="danger" 
+              (click)="removePermit(i)"></ion-icon>
+          </td>
+        </tr>
+      </table>
+    </ion-card-content>
+    <ion-list>
+      <ion-item>
+        <ion-button shape="round" (click)="save()">Add</ion-button>
+        <ion-button shape="round" (click)="cancel()">Cancel</ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+
+</ion-content>

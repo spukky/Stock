@@ -7,22 +7,22 @@
 <ion-content padding>
   <div *ngIf="addItemOpen;then addItem else searchItem "></div>
   <ng-template #searchItem>
-    <ion-searchbar showCancelButton  placeholder="รายการที่ต้องการเพิ่ม" (ionInput)="getItem($event)"></ion-searchbar>
+    <ion-searchbar showCancelButton placeholder="รายการที่ต้องการเพิ่ม" (ionInput)="getItem($event)"></ion-searchbar>
     <ion-list>
-      <ion-item (click)="addNewItem()" >
-        <ion-label position ="fixed" >
-          <ion-icon slot="end" size="small" name="add-circle-outline" position ="fixed"></ion-icon>
+      <ion-item (click)="addNewItem()">
+        <ion-label position="fixed">
+          <ion-icon slot="end" size="small" name="add-circle-outline" position="fixed"></ion-icon>
           เพิ่มรายการใหม่
         </ion-label>
       </ion-item>
       <ion-item *ngFor="let itemList of item" (click)="selectItem(itemList)">
-        <h6 >{{itemList.name}}</h6>
-      </ion-item >
+        <h6>{{itemList.name}}</h6>
+      </ion-item>
     </ion-list>
   </ng-template>
-  
-  <ng-template #addItem >
-     <ion-card>
+
+  <ng-template #addItem>
+    <ion-card>
       <ion-card-header>
         <ion-card-title>
           รายการวัสดุ-ครุภัณฑ์
@@ -32,70 +32,70 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-                <ion-item>
-                    <ion-label>ประเภทของรายการ</ion-label>
-                    <ion-select [(ngModel)]="select.type"  disabled="{{readable}}">
-                      <ion-select-option value="วัสดุ">วัสดุ</ion-select-option>
-                      <ion-select-option value="ครุภัณฑ์">ครุภัณฑ์</ion-select-option>
-                    </ion-select>
-                  </ion-item>
-                  <ion-item>
-                    <ion-label>หมวดหมู่ของรายการ</ion-label>
-                    <ion-select [(ngModel)]="select.group" disabled="{{readable}}">
-                      <ion-select-option value="สำนักงาน">สำนักงาน</ion-select-option>
-                      <ion-select-option value="ไฟฟ้าและวิทยุ">ไฟฟ้าและวิทยุ</ion-select-option>
-                      <ion-select-option value="คอมพิวเตอร์">คอมพิวเตอร์</ion-select-option>
-                      <ion-select-option value="โครงการฯ">โครงการฯ</ion-select-option>
-                      <ion-select-option value="อื่นๆ">อื่นๆ</ion-select-option>
-                    </ion-select>
-                  </ion-item>
               <ion-item>
-                <ion-label position="floating" >กลุ่มของรายการ</ion-label>
-                <ion-input  [(ngModel)]="select.list" readonly="{{readable}}" required></ion-input>
+                <ion-label>ประเภทของรายการ</ion-label>
+                <ion-select [(ngModel)]="select.type" disabled="{{readable}}">
+                  <ion-select-option value="วัสดุ">วัสดุ</ion-select-option>
+                  <ion-select-option value="ครุภัณฑ์">ครุภัณฑ์</ion-select-option>
+                </ion-select>
               </ion-item>
               <ion-item>
-                <ion-label position="floating" >ชื่อของรายการ</ion-label>
-                <ion-input  [(ngModel)]="select.name" readonly="{{readable}}" required></ion-input>
+                <ion-label>หมวดหมู่ของรายการ</ion-label>
+                <ion-select [(ngModel)]="select.group" disabled="{{readable}}">
+                  <ion-select-option value="สำนักงาน">สำนักงาน</ion-select-option>
+                  <ion-select-option value="ไฟฟ้าและวิทยุ">ไฟฟ้าและวิทยุ</ion-select-option>
+                  <ion-select-option value="คอมพิวเตอร์">คอมพิวเตอร์</ion-select-option>
+                  <ion-select-option value="โครงการฯ">โครงการฯ</ion-select-option>
+                  <ion-select-option value="อื่นๆ">อื่นๆ</ion-select-option>
+                </ion-select>
               </ion-item>
               <ion-item>
-                <ion-label position="floating" >โมเดลของรายการ</ion-label>
-                <ion-input  [(ngModel)]="select.model" readonly="{{readable}}" required></ion-input>
+                <ion-label position="floating">กลุ่มของรายการ</ion-label>
+                <ion-input [(ngModel)]="select.list" readonly="{{readable}}" required></ion-input>
               </ion-item>
               <ion-item>
-                <ion-label position="floating" >ยี่ห้อของรายการ</ion-label>
-                <ion-input  [(ngModel)]="select.brand" required  ></ion-input>
+                <ion-label position="floating">ชื่อของรายการ</ion-label>
+                <ion-input [(ngModel)]="select.name" readonly="{{readable}}" required></ion-input>
               </ion-item>
               <ion-item>
-                <ion-label position="floating" >หมายเหตุ</ion-label>
-                <ion-input [(ngModel)]="select.note" ></ion-input>
+                <ion-label position="floating">โมเดลของรายการ</ion-label>
+                <ion-input [(ngModel)]="select.model" readonly="{{readable}}" required></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">ยี่ห้อของรายการ</ion-label>
+                <ion-input [(ngModel)]="select.brand" required></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">หมายเหตุ</ion-label>
+                <ion-input [(ngModel)]="select.note"></ion-input>
               </ion-item>
             </ion-col>
             <ion-col>
               <ion-item>
-                <ion-label position="floating" type="number" >ราคาเฉลี่ยต่อหน่วยของรายการ</ion-label>
-                <ion-input [(ngModel)]="select.price" ></ion-input>
+                <ion-label position="floating" type="number">ราคาเฉลี่ยต่อหน่วยของรายการ</ion-label>
+                <ion-input [(ngModel)]="select.price"></ion-input>
               </ion-item>
               <ion-item>
-                <ion-label position="floating" type="number" >จำนวนที่เพิ่มของรายการ</ion-label>
-                <ion-input  [(ngModel)]="select.increas" required ></ion-input>
-              </ion-item>         
+                <ion-label position="floating" type="number">จำนวนที่เพิ่มของรายการ</ion-label>
+                <ion-input [(ngModel)]="select.increas" required></ion-input>
+              </ion-item>
               <ion-item>
-                <ion-label position="floating" >หน่วย</ion-label>
-                <ion-input  [(ngModel)]="select.unit" readonly="{{readable}}" required></ion-input>
+                <ion-label position="floating">หน่วย</ion-label>
+                <ion-input [(ngModel)]="select.unit" readonly="{{readable}}" required></ion-input>
               </ion-item>
               <div *ngIf="select.group == 'วัสดุโครงการ' || select.group == 'ครุภัณฑ์โครงการ' ">
                 <ion-item>
-                  <ion-label position="floating" >โครงการที่ซื้อของรายการ</ion-label>
-                  <ion-input  [(ngModel)]="select.project" readonly="{{readable}}" required></ion-input>
+                  <ion-label position="floating">โครงการที่ซื้อของรายการ</ion-label>
+                  <ion-input [(ngModel)]="select.project" readonly="{{readable}}" required></ion-input>
                 </ion-item>
               </div>
               <ion-item>
-                <ion-label position="fixed"  >วันจัดซื้อของรายการ</ion-label>
+                <ion-label position="fixed">วันจัดซื้อของรายการ</ion-label>
                 <ion-input [(ngModel)]="select.date_buy" type="date"></ion-input>
               </ion-item>
               <ion-item>
-                <ion-label position="floating" type="text" >สถานที่ซื้อของรายการ</ion-label>
-                <ion-input [(ngModel)]="select.buy_place" ></ion-input>
+                <ion-label position="floating" type="text">สถานที่ซื้อของรายการ</ion-label>
+                <ion-input [(ngModel)]="select.buy_place"></ion-input>
               </ion-item>
               <!-- <ion-item>
                 <ion-label position="floating" >สถานที่จัดเก็บของรายการ</ion-label>
@@ -103,7 +103,7 @@
               </ion-item> -->
               <ion-item>
                 <ion-label>สถานที่จัดเก็บของรายการ</ion-label>
-                <ion-select [(ngModel)]="select.keep_place" >
+                <ion-select [(ngModel)]="select.keep_place">
                   <ion-select-option value="ห้องพักอาจารย์">ห้องพักอาจารย์</ion-select-option>
                   <ion-select-option value="WSN Lab">WSN Lab</ion-select-option>
                   <ion-select-option value="Sparkbit Lab">Sparkbit Lab</ion-select-option>
@@ -122,25 +122,18 @@
                   <ion-select-option value="ศุพิวัสฒ์">ศุพิวัสฒ์</ion-select-option>
                 </ion-select>
               </ion-item>
-              
+
             </ion-col>
           </ion-row>
         </ion-grid>
         <ion-list>
-          <ion-item >
-            <ion-button shape="round" (click)="save()" >Add</ion-button>
-            <ion-button shape="round" (click)="cancel()" >Cancel</ion-button>  
+          <ion-item>
+            <ion-button shape="round" (click)="save()">Add</ion-button>
+            <ion-button shape="round" (click)="cancel()">Cancel</ion-button>
           </ion-item>
-          
         </ion-list>
-        
-      </ion-card-content>
-    </ion-card> 
-  </ng-template>
-  
 
-  
-  
-  
-  
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
 </ion-content>

@@ -5,8 +5,10 @@ const routes: Routes = [
   {
     path: '',
     // redirectTo: 'home',
-    redirectTo: 'list-permit-stock',
+    // redirectTo: 'list-permit-stock',
     // redirectTo: 'borrow-purchase-return',
+    redirectTo: 'purchase-item',
+    // redirectTo: 'list-stock',
     pathMatch: 'full'
   },
   {
@@ -26,6 +28,8 @@ const routes: Routes = [
   { path: 'add-permit', loadChildren: './add-permit/add-permit.module#AddPermitPageModule' },
   { path: 'borrow-purchase-return', loadChildren: './borrow-purchase-return/borrow-purchase-return.module#BorrowPurchaseReturnPageModule' },
   { path: 'return-item', loadChildren: './return-item/return-item.module#ReturnItemPageModule' },
+  { path: 'purchase-item', loadChildren: './purchase-item/purchase-item.module#PurchaseItemPageModule' },
+
 
 
 
