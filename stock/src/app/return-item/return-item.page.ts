@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Item } from '../item';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
+import { History } from '../history';
 
 @Component({
   selector: 'app-return-item',
@@ -28,7 +29,7 @@ export class ReturnItemPage implements OnInit {
   }
   itemDB: Observable<Item[]>;
   items: Item[];
-  amount: number ;
+  amount: number;
   selectItem: any;
   index: number;
   selectActive = false;
@@ -36,13 +37,20 @@ export class ReturnItemPage implements OnInit {
   returns: any[] = [];
   returnActive = false;
   timeNow = firebase.firestore.Timestamp.fromDate(new Date());
+  aprrover: string = null;
   ngOnInit() {
 
+    console.log("today", new Date());
 
   }
   save() {
-    this.updateBalance();
-    this.modalController.dismiss(this.returnItem)
+    if (this.aprrover != null) {
+      this.updateBalance();
+      this.modalController.dismiss(this.returnItem);
+    }
+    else{
+      this.alertFillOrder("กรุณากรอกข้อมูลให้ครบถ้วน","เลือกผู้รับสินค้าคืน");
+    }
   }
 
   cancel() {
@@ -55,11 +63,11 @@ export class ReturnItemPage implements OnInit {
     this.disableButton = false;
   }
   selectReturn() {
-    if (parseInt(this.selectItem.amount) >=  this.amount) {
+    if (parseInt(this.selectItem.amount) >= this.amount) {
       this.returnActive = true;
       this.returns.push({
         item: this.selectItem,
-        amount: this.amount*1
+        amount: this.amount * 1
       });
       this.returnItem.permit_order[this.index].amount -= this.amount * 1;
       this.disableButton = true;
@@ -72,47 +80,61 @@ export class ReturnItemPage implements OnInit {
     this.disableButton = true;
     this.selectItem = [];
     this.amount = null;
-  }
 
-  updatePermit(item) {
-    this.returnItem.permit_order.forEach((r,index) => {
-      if (r.id_item == item.item.id_item) {
-        // r.amount -= item.amount*1;
-        if (r.amount > item.amount) {
-          this.returnItem.status = "Returning";
-        } else if (r.amount == item.amount) {
-          this.returnItem.status = "Returned";
-        }
-      }
-      else {
-        console.log("error");
+  }
+  removePermit(i) {
+    this.returnItem.permit_order.forEach(item => {
+      if (item.id_item == this.returns[i].item.id_item) {
+        item.amount += (this.returns[i].amount * 1);
       }
     });
+    this.returns.splice(i, 1);
   }
 
   updateBalance() {
+
+    console.log("update");
     this.items.forEach((item) => {
       this.returns.forEach((r) => {
         if (item.id === r.item.id_item) {
-          if (r.amount <= r.item.amount) {
-            item.balance += r.amount * 1;
-            this.db.collection("Items").doc(item.id).update({
-              balance: item.balance
-            });
-            this.db.collection("Items").doc(item.id).collection("History").add({
-          order_id: this.returnItem.id,
-          date_update: this.timeNow,
-          id_item: item.id,
-          status: "return",
-          amount: r.amount,
-          unit: item.unit
-            });
-            this.updatePermit(r);
-            return;
-          }
+          console.log("return", r);
+          console.log("item=", item.balance);
+          console.log("return=", r.amount);
+          console.log("item + return", item.balance + r.amount * 1);
+
+          // if (r.amount <= r.item.amount) {
+          item.serial.push({
+            serial_item: r.item.serial_item ,
+            serial_number: r.item.serial_number
+          })
+          item.balance += (r.amount * 1);
+          this.db.collection("Items").doc(r.item.id_item).update({
+            balance: item.balance,
+            serial: item.serial
+          });
+          
+          this.db.collection("Items").doc(r.item.id_item).collection<History>("Historys").add({
+            order_id: this.returnItem.id,
+            date_update: this.timeNow,
+            id_item: item.id,
+            status: "return",
+            amount: r.amount,
+            unit: item.unit,
+            serial: {
+              serial_item: r.item.serial_item,
+              serial_number: r.item.serial_number
+            },
+
+            update_by: this.aprrover
+          });
+          console.log("item new", item);
+
+
+          return;
+          // }
         }
-      })
-    })
+      });
+    });
   }
 
   async alertFillOrder(head, text) {

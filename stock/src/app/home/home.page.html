@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      หน้าหลัก 
+      หน้าหลัก
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,41 +12,39 @@
 
 
 <ion-content>
-<ion-grid>
-   <ion-row>
-    <ion-col size="4" align-self-center offset="1">
-        <ion-img  src="assets/img/return.png" (click)="listPremitStock()"></ion-img>
-      
-        รายการยืมวัสดุ-ครุภัณฑ์
-        <br>
-        จำนวน 15 รายการ
-    </ion-col>
-    <ion-col size="4" offset="1">
-        <ion-img  src="assets/img/stock.png" (click)="listStock()"></ion-img>
-
-            ทะเบียนวัสดุ-ครุภัณฑ์
-            <br>
-            จำนวน 20 รายการ
-    </ion-col>
-  </ion-row>   
-  <ion-row align-items-end>
-      <ion-col size="4" offset="1" >
-          <ion-img  src="assets/img/box.png"></ion-img>
-             วัสดุใกล้หมด
-             <br>
-             จำนวน 3 รายการ
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" align-self-center offset="1">
+        <ion-img src="assets/img/return.png" (click)="listPremitStock()"></ion-img>
+        <div text-align: center>
+          รายการยืมวัสดุ-ครุภัณฑ์
+          <br>
+          จำนวน {{permitItems.length}} รายการ
+        </div>
       </ion-col>
       <ion-col size="4" offset="1">
-          <ion-img  src="assets/img/emtry.png"></ion-img>
-          
-              วัสดุหมดแล้ว
-              <br>
-              จำนวน 2 รายการ
-           
+        <ion-img src="assets/img/stock.png" (click)="listStock()"></ion-img>
+        ทะเบียนวัสดุ-ครุภัณฑ์
+        <br>
+        จำนวน {{items.length}} รายการ
       </ion-col>
-    </ion-row>   
+    </ion-row>
+    <ion-row align-items-end>
+      <ion-col size="4" offset="1">
+        <ion-img src="assets/img/box.png" (click)="test()"></ion-img>
+        วัสดุใกล้หมด
+        <br>
+        จำนวน 0 รายการ
+      </ion-col>
+      <ion-col size="4" offset="1">
+        <ion-img src="assets/img/emtry.png"></ion-img>
+        วัสดุหมดแล้ว
+        <br>
+        จำนวน 0 รายการ
+      </ion-col>
+    </ion-row>
 
-</ion-grid>
+  </ion-grid>
 </ion-content>
 <!-- <ion-footer>
   <ion-toolbar>

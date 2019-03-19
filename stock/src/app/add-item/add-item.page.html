@@ -22,7 +22,7 @@
   </ng-template>
 
   <ng-template #addItem>
-    <ion-card>
+    <ion-card >
       <ion-card-header>
         <ion-card-title>
           รายการวัสดุ-ครุภัณฑ์
@@ -37,6 +37,7 @@
                 <ion-select [(ngModel)]="select.type" disabled="{{readable}}">
                   <ion-select-option value="วัสดุ">วัสดุ</ion-select-option>
                   <ion-select-option value="ครุภัณฑ์">ครุภัณฑ์</ion-select-option>
+                  <ion-select-option value="อื่นๆ">อื่นๆ</ion-select-option>
                 </ion-select>
               </ion-item>
               <ion-item>
@@ -127,9 +128,9 @@
           </ion-row>
         </ion-grid>
         <ion-list>
-          <ion-item>
-            <ion-button shape="round" (click)="save()">Add</ion-button>
-            <ion-button shape="round" (click)="cancel()">Cancel</ion-button>
+  <ion-item  >
+            <ion-button shape="round" (click)="saveAlert()">บันทึก</ion-button>
+            <ion-button shape="round" (click)="cancel()">ยกเลิก</ion-button>
           </ion-item>
         </ion-list>
 

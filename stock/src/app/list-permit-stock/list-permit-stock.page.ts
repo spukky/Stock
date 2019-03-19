@@ -5,10 +5,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { permitItem } from '../permit-item';
 import { mockPremitItems } from '../mock-permit-item';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { AddPermitPage } from '../add-permit/add-permit.page';
 import { Item } from '../item';
 import { ReturnItemPage } from '../return-item/return-item.page';
+import { WithdrawItemPage } from '../withdraw-item/withdraw-item.page';
 
 @Component({
   selector: 'app-list-permit-stock',
@@ -17,7 +18,7 @@ import { ReturnItemPage } from '../return-item/return-item.page';
 })
 export class ListPermitStockPage implements OnInit {
 
-  constructor(private db: AngularFirestore, public modalController: ModalController) {
+  constructor(private db: AngularFirestore, public modalController: ModalController, public alertController: AlertController) {
     this.permitColloction = db.collection<permitItem>("PermitItems");
     this.permitItems = this.permitColloction.snapshotChanges().pipe(
       map(actions => {
@@ -29,8 +30,8 @@ export class ListPermitStockPage implements OnInit {
       }));
     this.permitItems.subscribe(res => {
       this.permitDB = res;
-    //  console.log("permitDB",this.permitDB);
-     
+      //  console.log("permitDB",this.permitDB);
+
     });
     this.itemDB = db.collection<Item>("Items").snapshotChanges().pipe(
       map(actions => {
@@ -43,7 +44,7 @@ export class ListPermitStockPage implements OnInit {
     this.itemDB.subscribe(res => {
       this.item = res;
       // console.log("this.item",this.item);
-      
+
     });
 
 
@@ -51,6 +52,7 @@ export class ListPermitStockPage implements OnInit {
   }
 
   ngOnInit() {
+    // console.log("time",new Date());
   }
   itemDB: Observable<Item[]>;
   item: Item[];
@@ -58,41 +60,31 @@ export class ListPermitStockPage implements OnInit {
   permitItems: Observable<permitItem[]>;
   permitDB: permitItem[];
   permitColloction: AngularFirestoreCollection<permitItem>;
-  returnItem:any
+  returnItem: any
 
-  // test() {
-  //   for (let permit of this.permition) {
-  //     this.db.collection("PermitItems").doc(permit.order_number).set(permit)
-  //       .then((docRef) => {
-  //         console.log("Document written with ID: ", docRef);
-  //       })
-  //       .catch((error) => {
-  //         console.log("Error adding document: ", error);
-
-  //       })
-  //   }
-  // }
 
   addPermit() {
     console.log("ADD");
-    this.addPermitModal();
+    this.selectAddIPermitAlert();
+
 
   }
-  returnStock(permit){
-    console.log("permit",permit);
+  returnStock(permit) {
+    // console.log("permit",permit);
     this.returnItem = permit;
+
     this.returnModal();
   }
 
 
   async addPermitModal() {
-    console.log("modalPermition");
+    // console.log("modalPermition");
 
     const modal = await this.modalController.create({
       component: AddPermitPage,
       componentProps:
-       { 
-         permit: this.permitDB,
+      {
+        permit: this.permitDB,
       }
     });
     modal.onDidDismiss().then((data) => {
@@ -105,18 +97,71 @@ export class ListPermitStockPage implements OnInit {
     return await modal.present();
   }
 
-  async returnModal(){
+  async returnModal() {
     const modal = await this.modalController.create({
-      component: ReturnItemPage ,
-      componentProps:{
-        returnItem:this.returnItem,
+      component: ReturnItemPage,
+      componentProps: {
+        returnItem: this.returnItem,
+      }
+    });
+    modal.onDidDismiss().then((data) => {
+      // console.log(data.data);
+      let sum: number = 0;
+      console.log("data", data);
+      if (data.data != undefined) {
+        data.data.permit_order.forEach(permit => {
+          sum += (permit.amount * 1);
+        });
+        if (sum == 0) {
+          data.data.status = "Returned";
+        }
+        else {
+          data.data.status = "Returnning"
+        }
+        this.db.collection("PermitItems").doc(data.data.id).update(data.data);
+      }
+
+    })
+    return await modal.present();
+  }
+
+  async selectAddIPermitAlert() {
+    const alert = await this.alertController.create({
+      header: "ต้องการทำรายการยืม/เบิก",
+      message: 'กรุณาลือกรูปแบบการทำรายการ',
+      buttons: [
+        {
+          text: 'เบิกวัสดุ',
+          handler: () => {
+            this.addWithdrawModal();
+          }
+        },
+        {
+          text: 'ยืมครุภัณฑ์-วัสดุ',
+          handler: () => {
+            this.addPermitModal();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async addWithdrawModal() {
+    // console.log("modalPermition");
+
+    const modal = await this.modalController.create({
+      component: WithdrawItemPage,
+      componentProps:
+      {
+        item: this.item,
       }
     });
     modal.onDidDismiss().then((data) => {
       console.log(data.data);
       if (data.data != undefined) {
-        // this.db.collection("PermitItems").doc(data.data.order_number).set(data.data);
-        this.db.collection("PermitItems").doc(data.data.id).update(data.data);
+        console.log("data", data.data);
+        this.db.collection("PermitItems").doc(data.data.order_number).set(data.data);
       }
 
     })

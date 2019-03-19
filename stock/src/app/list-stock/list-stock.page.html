@@ -17,10 +17,10 @@
            <table style="width:100%" id="t01">
         <tr>
           <th>ลำดับ</th>
-          <th>ประเภท</th> 
+          <!-- <th>ประเภท</th>  -->
           <th>หมวดหมู่</th> 
           <th>รายการ</th>
-          <th>โมเดล</th> 
+          <!-- <th>โมเดล</th>  -->
           <th>ยี่ห้อ</th> 
           <th>คงเหลือจำนวน</th> 
           <th>หน่วย</th> 
@@ -31,10 +31,10 @@
         </tr>
         <tr *ngFor="let item of itemsDB; index as i"  >
           <td>{{i+1}}</td>
-          <td>{{item.type}} </td> 
+          <!-- <td>{{item.type}} </td>  -->
           <td>{{item.group}}</td>
           <td>{{item.name}}</td>
-          <td>{{item.model}}</td> 
+          <!-- <td>{{item.model}}</td>  -->
           <td>{{item.brand}}</td>
           <td>{{item.balance}}</td>
           <td>{{item.unit}}</td>

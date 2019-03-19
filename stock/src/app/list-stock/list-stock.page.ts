@@ -41,19 +41,6 @@ export class ListStockPage implements OnInit {
   itemsDB: Item[];
   ngOnInit() {
   }
-
-  // test() {
-  //   for (let key in this.items) {
-  //       this.db.collection("Items").add(this.items[key])
-  //   .then((docRef) => {
-  //     console.log("Document written with ID: ", docRef.id);
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error adding document: ", error);
-  //   })
-  //   }
-  // }
-
   infoItem(item) {
     this.selectItem = item;
     this.infoItemmodal();
@@ -73,10 +60,12 @@ export class ListStockPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((data) => {
-      console.log(data.data);
+      // console.log(data.data);
       if (data.data != null) {
         if (data.data.id == null) {
           this.itemsCollection.add(data.data);
+
+          
         }
         else {
           this.itemsCollection.doc(data.data.id).update(data.data);
@@ -94,9 +83,9 @@ export class ListStockPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((data) => {
-      if(data.data != undefined)
-      console.log("data", data);
-      this.db.collection("Purchases").add(data.data);
+      if (data.data != undefined)
+        // console.log("data", data);
+        this.db.collection("Purchases").add(data.data);
     });
     return await modal.present();
   }
@@ -117,7 +106,7 @@ export class ListStockPage implements OnInit {
   }
 
   async infoItemmodal() {
-    console.log("Info");
+    // console.log("Info");
     const modal = await this.modalController.create({
       component: InfoItemPage,
       componentProps: {

@@ -43,6 +43,8 @@ export class PurchaseItemPage implements OnInit {
   addItemOpen = false;
   ngOnInit() {
     // console.log("item",this.purchaseItems);
+    console.log("time",new Date());
+    
   }
 
   getItem(searchbar) {
@@ -232,7 +234,8 @@ export class PurchaseItemPage implements OnInit {
                   order_id: this.purchaseOrder.order_purchase,
                   status:"purchase",
                   id_item: item.id,
-                  unit: purchase.product_unit
+                  unit: purchase.product_unit,
+                  update_by:this.purchaseOrder.name_buyer
                 });
               }
             });

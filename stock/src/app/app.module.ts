@@ -19,6 +19,8 @@ import { AddPermitPageModule } from './add-permit/add-permit.module';
 import { BorrowPurchaseReturnPageModule } from './borrow-purchase-return/borrow-purchase-return.module';
 import { ReturnItemPageModule } from './return-item/return-item.module';
 import { PurchaseItemPageModule } from './purchase-item/purchase-item.module';
+import { SerialItemPageModule } from './serial-item/serial-item.module';
+import { WithdrawItemPageModule } from './withdraw-item/withdraw-item.module';
 
 
 
@@ -38,6 +40,8 @@ import { PurchaseItemPageModule } from './purchase-item/purchase-item.module';
     BorrowPurchaseReturnPageModule,
     ReturnItemPageModule,
     PurchaseItemPageModule,
+    SerialItemPageModule,
+    WithdrawItemPageModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
 

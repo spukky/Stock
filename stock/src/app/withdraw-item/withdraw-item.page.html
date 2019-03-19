@@ -1,39 +1,43 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>เพิ่มรายการการยืม</ion-title>
+    <ion-title>เบิกวัสดุ</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>รายการยืมคืนวัสดุ-ครุภัณฑ์</ion-card-title>
+      <ion-card-title>รายการเบิกวัสดุ-ครุภัณฑ์</ion-card-title>
       <ion-card-subtitle>
         สถาบันวิจัย และนวัตกรรมดิจิทัล
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <ion-item>
-        <ion-label position="fixed">เลขรายการยืม</ion-label>
-        <ion-input type="text" [(ngModel)]="permitItem.order_number" required maxlength="10"
+        <ion-label position="fixed">เลขรายการ</ion-label>
+        <ion-input type="text" [(ngModel)]="permitorder.order_number" required maxlength="10"
           onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13 || event.charCode == 110) ? null : event.charCode >= 48 && event.charCode <= 57">
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="fixed">ชื่อ-สกุล</ion-label>
-        <ion-input type="text" [(ngModel)]="permitItem.name_borrower" required maxlength="30"></ion-input>
+        <ion-label position="fixed">ชื่อ-สกุลผู้เบิก</ion-label>
+        <ion-input type="text"  [(ngModel)]="permitorder.name_borrower" required maxlength="30"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="fixed">หน่วยงาน</ion-label>
-        <ion-input type="text" [(ngModel)]="permitItem.department" required maxlength="30"></ion-input>
+        <ion-input type="text"   [(ngModel)]="permitorder.department" required maxlength="30"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="fixed">เพื่อใช้ในงาน</ion-label>
-        <ion-input type="text" [(ngModel)]="permitItem.objective" required maxlength="50"></ion-input>
+        <ion-input type="text"  [(ngModel)]="permitorder.objective" required maxlength="100"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed">วันที่ยืม</ion-label>
+        <ion-input type="date"  [(ngModel)]="permitorder.date_premit" required></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>ผู้อนุมัติ</ion-label>
-        <ion-select [(ngModel)]="permitItem.approvers">
+        <ion-select [(ngModel)]="permitorder.approvers">
           <ion-select-option value="กิตติยา">กิตติยา</ion-select-option>
           <ion-select-option value="อมรรัตน์">อมรรัตน์</ion-select-option>
           <ion-select-option value="วรรณรัช">วรรณรัช</ion-select-option>
@@ -44,62 +48,39 @@
         <ion-label position="fixed">รายการของ</ion-label>
         <ion-input type="text" (ionInput)="getItem($event)" clear-input="true" required></ion-input>
       </ion-item>
-      <ion-item *ngFor="let item of this.fillItem" (click)="selectItem(item)">
+      <ion-item *ngFor="let item of takeItem" (click)="selectItem(item)">
         <h6>{{item.name}}</h6>
-      </ion-item>
-
-
-      <ion-item disabled="{{clickAble}}">
-        <ion-label position="fixed">รหัสครุภัณฑ์ที่ต้องการยืม</ion-label>
-        <ion-input type="text" (ionInput)="getSerialItem($event)" clear-input="true" required></ion-input>
-          <ion-item *ngFor="let serial of serialPermit;index as i" (click)="selectSerial(i)">
-            <h6>{{serial.serial_item}}</h6>
-          </ion-item>
       </ion-item>
     </ion-card-content>
 
     <ion-card>
       <ion-card-content>
-
         <table style="width:100%" id="t01">
           <tr>
             <th>ลำดับ</th>
             <th>รายการของ</th>
-            <th>รหัสครุภัณฑ์</th>
-            <th>Serail No.</th>
             <th>จำนวน</th>
             <th>หน่วย</th>
             <th>
-              <!-- <div>
-                <ion-icon slot="end" size="large" name="add-circle-outline" position="fixed" color="secondary"
-                  (click)="addPermit()"></ion-icon>
-              </div> -->
             </th>
           </tr>
-          <tr *ngFor="let permit of permitOrder; index as i">
+          <tr *ngFor="let item of permitItems; index as i">
             <td>
               {{i+1}}
             </td>
             <td>
               <!-- <ion-input type="text" [(ngModel)]="permit.nameItem" ></ion-input> -->
-              <ion-input type="text" placeholder="{{permit.nameItem}}" readonly></ion-input>
+              <ion-input type="text" placeholder="{{item.nameItem}}" readonly></ion-input>
             </td>
             <td>
-              <ion-input type="text" placeholder="{{permit.serial_item}}" readonly></ion-input>
-
-            </td>
-            <td>
-              <ion-input type="text" placeholder="{{permit.serial_number}}" readonly></ion-input>
-            </td>
-            <td>
-              <ion-input type="number" [(ngModel)]="permit.amount" min="0"
+              <ion-input type="number" [(ngModel)]="item.amount" min="0"
                 onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13 || event.charCode == 110) ? null : event.charCode >= 48 && event.charCode <= 57">
               </ion-input>
               <!-- <ion-input type="text" (ionInput)="amount($event)"></ion-input> -->
 
             </td>
             <td>
-              <ion-input type="text" placeholder="{{permit.unit}}" readonly></ion-input>
+              <ion-input type="text" placeholder="{{item.unit}}" readonly></ion-input>
 
             </td>
             <td>
@@ -108,12 +89,13 @@
             </td>
           </tr>
         </table>
+        
       </ion-card-content>
     </ion-card>
     <ion-list>
-      <ion-item>
-        <ion-button shape="round" (click)="save()">Add</ion-button>
-        <ion-button shape="round" (click)="cancel()">Cancel</ion-button>
+  <ion-item >
+        <ion-button shape="round" (click)="saveAlert()" disabled="{{clickAble}}">Add</ion-button>
+        <ion-button shape="round" (click)="cancel()" >Cancel</ion-button>
       </ion-item>
 
     </ion-list>

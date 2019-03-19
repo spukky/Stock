@@ -16,7 +16,9 @@ export class Item {
     project?: string;
     increas?: number
     id?: string;
-    serial_number?: string;
-    serial_item?: string;
-
+    serial?: Array<{
+        serial_number:string;
+        serial_item:string;
+    }>;
+    date_update?:any;
 }

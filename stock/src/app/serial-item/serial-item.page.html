@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>เพิ่มทะเบียนวัสดุ-ครุภัณฑ์</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <table style="width:100%" id="t01">
+    <tr>
+      <th>ลำดับ</th>
+      <th>รายการของ</th>
+      <th>รหัสครุภัณฑ์</th>
+      <th>
+              <ion-icon slot="end" size="small" name="add-circle-outline" position="fixed" color="danger"
+          (click)="addSerial()" ></ion-icon>      
+      </th>
+    </tr>
+    <tr *ngFor="let serial of serialItem;index as i">
+      <td>
+        {{i+1}}
+      </td>
+      <td>
+        <ion-input type="text"  [(ngModel)]="serial.serial_number" ></ion-input>
+      </td>
+      <td>
+        <ion-input type="text" [(ngModel)]="serial.serial_item"></ion-input>
+      </td>
+      <td>
+        <ion-icon slot="end" size="small" name="remove-circle-outline" position="fixed" color="danger"
+          (click)="removePermit(i)"></ion-icon>
+      </td>
+    </tr>
+  </table>
+  <ion-list>
+    <ion-item>
+      <ion-button shape="round" (click)="saveAlert()">บันทึก</ion-button>
+      <ion-button shape="round" (click)="cancel()">ยกเลิก</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
