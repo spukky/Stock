@@ -34,13 +34,23 @@ export class ListStockPage implements OnInit {
     });
   }
 
-  items = mockItems;
+  items:any[]
   selectItem: Item;
   itemsCollection: AngularFirestoreCollection<Item>;
   dataItems: Observable<Item[]>
   itemsDB: Item[];
+
   ngOnInit() {
   }
+  ngOnChange() {
+    this.itemsDB.forEach((item) =>{
+      if(item.balance > 0){
+        this.items.push(item);
+      }
+    });
+    console.log("item",this.items);
+  }
+  
   infoItem(item) {
     this.selectItem = item;
     this.infoItemmodal();
@@ -133,8 +143,7 @@ export class ListStockPage implements OnInit {
           handler: () => {
             this.addPurchaseModal();
           }
-        }
-      ]
+        }]
     });
     await alert.present();
   }

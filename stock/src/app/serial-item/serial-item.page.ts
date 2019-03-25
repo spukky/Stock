@@ -100,7 +100,8 @@ export class SerialItemPage implements OnInit {
         this.item.date_buy = firebase.firestore.Timestamp.fromDate(new Date(this.item.date_buy));
         console.log("date2", this.item.date_buy);
       }
-      console.log("lenght", this.item.serial.length);
+      // console.log("lenght", this.item.serial.length);
+      
       if (this.item.serial.length == 0) {
         this.item.serial = this.serialItem;
       } else {
@@ -121,6 +122,8 @@ export class SerialItemPage implements OnInit {
     }
     else {
     }
+    console.log("item",this.item);
+    
   }
 
   async alertFillOrder(head, text) {

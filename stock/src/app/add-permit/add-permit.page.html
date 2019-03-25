@@ -52,7 +52,7 @@
       <ion-item disabled="{{clickAble}}">
         <ion-label position="fixed">รหัสครุภัณฑ์ที่ต้องการยืม</ion-label>
         <ion-input type="text" (ionInput)="getSerialItem($event)" clear-input="true" required></ion-input>
-          <ion-item *ngFor="let serial of serialPermit;index as i" (click)="selectSerial(i)">
+          <ion-item *ngFor="let serial of serialPermit;index as i" (click)="selectSerial(serial)">
             <h6>{{serial.serial_item}}</h6>
           </ion-item>
       </ion-item>

@@ -118,7 +118,7 @@ export class ReturnItemPage implements OnInit {
             date_update: this.timeNow,
             id_item: item.id,
             status: "return",
-            amount: r.amount,
+            amount: r.amount*1,
             unit: item.unit,
             serial: {
               serial_item: r.item.serial_item,

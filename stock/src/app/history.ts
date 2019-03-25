@@ -5,7 +5,7 @@ export class History {
         //   id:string;
           price?: number;
           status: string; //ยืม/คืน/ซื้อเพิ่ม/สูญหาย/ชำรุด
-          amount: number;
+          amount?: number;
           buy_place?: string;
           update_by: string;
           unit:string;

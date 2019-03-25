@@ -196,14 +196,14 @@ export class AddItemPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((data) => {
+
       console.log("data", data.data);
       this.itemsDB.forEach(item => {
         if (item.name == data.data.name) {
           this.db.collection("Items").doc(data.data.id).collection("Historys").add({
-            date_update: data.data.date_buy,
+            date_update: firebase.firestore.Timestamp.fromDate(new Date()),
             price: data.data.price,
             status: "Purchase",
-            amount: data.data.increas,
             buy_place: data.data.buy_place,
             update_by: data.data.attendant,
             unit: data.data.unit

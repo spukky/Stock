@@ -131,10 +131,17 @@ export class AddPermitPage implements OnInit {
     });
   }
 
-  selectSerial(index) {
-    this.index = index;
+  selectSerial(serial) {
+    this.item.serial.forEach((s,index)=>{
+      if(s.serial_item == serial.serial_item && s.serial_number == serial.serial_number){
+        this.index = index;
+        console.log("item",this.item.serial[this.index]);
+      }
+    });
     this.permitOrderItem();
-    console.log("serial", this.item.serial[index]);
+   
+    
+    
 
   }
 
@@ -189,7 +196,7 @@ export class AddPermitPage implements OnInit {
                 serial_item: this.item.serial[this.index].serial_item,
                 unit: this.item.unit,
                 amount: 1,
-                id_item: this.item.id
+                id_item: this.item.id,
               });
             if (this.permitOrder[this.permitOrder.length - 1].serial_item == null || this.permitOrder[this.permitOrder.length - 1].serial_number == null) {
               if (this.permitOrder[this.permitOrder.length - 1].serial_item == null) {

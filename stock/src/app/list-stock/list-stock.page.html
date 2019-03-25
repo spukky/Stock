@@ -7,7 +7,7 @@
 <ion-content padding>
 
  
-      <ion-searchbar class ="search" cancel-button-text fill="outline"> ค้นหารายการ </ion-searchbar>
+      <!-- <ion-searchbar class ="search" cancel-button-text fill="outline"> ค้นหารายการ </ion-searchbar> -->
   
   <ion-card>
       <ion-card-header>
@@ -29,8 +29,9 @@
           <th>หมายเหตุ</th> 
           <th></th> 
         </tr>
-        <tr *ngFor="let item of itemsDB; index as i"  >
-          <td>{{i+1}}</td>
+        <tr     *ngFor="let item of itemsDB; index as i" >
+          <!-- <ng-container *ngIf=" item.balance > 0"> -->
+             <td>{{i+1}}</td>
           <!-- <td>{{item.type}} </td>  -->
           <td>{{item.group}}</td>
           <td>{{item.name}}</td>
@@ -44,7 +45,9 @@
           <td>
               <ion-img  src="assets/img/folder.png"    (click)="infoItem(item)" ></ion-img>
               <ion-img  src="assets/img/edit.png"    (click)="editItem(i)"></ion-img>
-          </td>
+          </td>         
+          <!-- </ng-container> -->
+
         </tr>
 
       </table>
